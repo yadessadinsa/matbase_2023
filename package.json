@@ -1,0 +1,58 @@
+{
+  "name": "matbase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No test specified\" && exit 1",
+    "build": "echo \"No build specified\" && exit 1"
+  },
+  "engines": {
+    "node": "9.3.0",
+    "npm": "5.5.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^6.14.2",
+    "express3-handlebars": "^0.5.2",
+    "gulp": "^3.9.1",
+    "gulp-install": "^1.1.0",
+    "install": "^0.11.0",
+    "ionic": "^5.4.16",
+    "jade": "^1.11.0",
+    "jquery": "^3.3.1",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.8.2",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0",
+    "nodemo": "^1.0.0",
+    "nodemon": "^2.0.20",
+    "passport": "^0.6.0",
+    "passport-http": "*",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2",
+    "router": "^1.3.7",
+    "sass": "^1.57.1",
+    "serve-favicon": "^2.4.5"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yadessadinsa/matbase_023.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yadessadinsa/matbase_023/issues"
+  },
+  "homepage": "https://github.com/yadessadinsa/matbase_023#readme"
+}
