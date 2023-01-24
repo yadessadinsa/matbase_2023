@@ -447,7 +447,8 @@ check('PrjNm', 'The project name is not inserted!')
  
 /* RENDER ACTIVITY SUMMARY PAGE
 ------------------------------------------*/
-router.post("/datas1", function (req, res) {
+
+router.post("/datas1", urlencodedParser, validationBodyRules, function (req, res) {
   
    
 
@@ -557,6 +558,7 @@ router.post("/datas1", function (req, res) {
 ------------------------------------------*/
 router.get("/datas1", function (req, res) {
   
+ 
    
 
              
