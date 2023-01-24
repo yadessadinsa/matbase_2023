@@ -299,6 +299,7 @@ h2{
 }
 h6{
   align:right;
+  float: right
 }
 
 .h22{
@@ -727,10 +728,10 @@ header a:hover {
   float:left;
   
   width: 100%;
-  padding-top: 30px;
+  padding-top: 75px;
   padding-bottom: 60px;
   color:white;
-  background:#ced5db;
+  background:white;
   
   
 }
@@ -760,7 +761,7 @@ header a:hover {
   border-radius: 50px;
   height: 10%;
   margin: 10px 20px;
-  margin-left: 420px;
+  margin-left: 483px;
   
   
 }
