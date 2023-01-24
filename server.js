@@ -43,7 +43,7 @@ var expressLayouts = require('express-ejs-layouts')
 
 var connection =   'mongodb://localhost/Data_app' 
 
-mongoose.connect( connection  , {
+/*mongoose.connect( connection  , {
     useNewUrlParser: true,
     //useCreateIndex: true,
     useUnifiedTopology: true
@@ -57,7 +57,7 @@ mongoose.connection.on('open', function (ref) {
     mongoose.connection.db.listCollections().toArray(function (err, names) {
         console.log(names);
     });
-})
+})*/
 
 
 
