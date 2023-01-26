@@ -89,7 +89,7 @@ element::-webkit-scrollbar {
 }
 
 .databaseA{
-  background: #7c7c7b;
+  background: darkslategrey;
   margin:px;
   padding-top:2px;
   color:black;
@@ -100,17 +100,17 @@ element::-webkit-scrollbar {
 
 
 .database1{
-  background: #7c7c7b;
+  background: darkslategrey;
   margin:0px;
   padding-top:2px;
   padding-right: 4px;
   color:black;
   float:left;
-  width:13.%
+  width:53%
 }
 
 .database2{
-  background:#7c7c7b;
+  background: darkslategrey;
   margin:0px;
   padding-top:2px;
   color:black;
@@ -118,7 +118,7 @@ element::-webkit-scrollbar {
   width:18%
 }
 .database3{
-  background: #7c7c7b;
+  background: darkslategrey;
   margin:0px;
   padding-bottom:0px;
   padding-top:2px;
@@ -139,7 +139,7 @@ element::-webkit-scrollbar {
 }
 
 .database5{
-  background: #7c7c7b;
+  background: darkslategrey;
   margin-left:0px;
   margin-right: 0px;
   padding-bottom:0px;
@@ -443,7 +443,7 @@ p{
     margin-top:100px;
     margin-bottom:169px;
     margin-right:150;
-    padding-bottom: px;
+    padding-bottom: 7px;
     padding-left:55px;
     padding-right:55px;
     padding-bottom: px;
@@ -592,7 +592,7 @@ header .highlight, header .current a {
   color: darkslategray;
   font-weight: bold;
   text-align: center;
-  margin-top:15px;
+  margin-top:27px;
   font-size: 20px;
   padding-bottom: 2px;
   padding-top: 30px

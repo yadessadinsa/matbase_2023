@@ -88,10 +88,10 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/public"));
 /* SESSION HANDLER
 ---------------------------------------*/
-
+ const oneDay = 1000 * 60 * 60 *24
 app.use(session({
     secret: "thisismysession",
-    cookie:{  maxAge: 60000},
+    cookie:{  maxAge: oneDay},
     saveUninitialized:false,
     resave: false
 }));
