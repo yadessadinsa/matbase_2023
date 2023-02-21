@@ -13,7 +13,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../models/user.js');
 var data = require('../models/data.js');
-//var {projectname} = require('../models/project.js');
+var project = require('../models/project.js');
 
 var Instdata = require('../models/Instdata.js');
 var dataStatus = require('../controller/dataStatus.js')
@@ -27,6 +27,7 @@ const urlencodedParser = bodyParser.urlencoded({extended: false})
 ------------------------------------------------*/
 router.get('/about', function (req, res, next) {
     res.render('First headerxx')
+    
 })
 
 /* AUTHENTICATION ROUTES
@@ -69,8 +70,8 @@ const errors = validationResult(req);
         req.flash('error', error.msg)
        
        })
-
-       res.render('register', {messages: req.flash()})
+       var messages =  req.flash()
+       res.render('register', {messages, layout: './layouts/intro header'})
           return
          
         
@@ -95,7 +96,7 @@ const errors = validationResult(req);
             return res.render('register')
         });
             req.flash('name','You are now registered and authorized to login!')
-            res.location('/login')
+            //res.location('/login')
             res.redirect('/login')
     })
 
@@ -104,7 +105,7 @@ const errors = validationResult(req);
 --------------------------------------*/
 router.get('/login', function (req, res) {
     var UserName = req.flash('name')
-    res.render('login.ejs', {UserName})
+    res.render('login.ejs', {UserName, layout:'./layouts/intro header'})
 }) 
 
 function ensureAuthenticated(req, res, next) {
@@ -145,7 +146,7 @@ function ensureAuthenticated(req, res, next) {
 
     router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash:('danger','Invalid username or pssword!! Please re-enter the credentials correctly.' )}),
   function(req, res) {
-    req.flash('success','You are now logged in!');
+    req.flash('success','You are now succefully logged in to the program!');
     res.redirect('/intro');
   });
        
@@ -157,7 +158,6 @@ router.get('/intro', function (req, res) {
     res.render('intro' ,{message:req.flash(), layout: './layouts/datas header'});
 
 })
-
 
 
 
@@ -193,10 +193,12 @@ router.get('/logout', function (req, res) {
     res.redirect('/');
 })
 
+
+
 /* RETRIEVES ALL DATA FROM THE DATABASE DATA
 -------------------------------------------------*/
 
-var pipelineSrt = [
+/*var pipelineSrt = [
                  
     {
         '$match': {
@@ -208,11 +210,11 @@ var pipelineSrt = [
                            'Date': -1
                           }
                      }
-                   ]
+                   ]*/
 
 router.get("/datas", ensureAuthenticated, function (req, res) {
     
-    data.aggregate(pipelineSrt, function (err, datas) {
+    data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, datas) {
         if (err) {
            
             console.log("You have an error")
@@ -227,12 +229,12 @@ router.get("/datas", ensureAuthenticated, function (req, res) {
             console.log("All the datas are retrieved from the database")
             
         }
-    })
+    }).sort({"PrjNm": 1})
 })
 
 router.get("/Editdata", ensureAuthenticated, function (req, res) {
     
-    data.aggregate(pipelineSrt, function (err, Editdata) {
+    data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
         if (err) {
            
             console.log("You have an error")
@@ -247,33 +249,100 @@ router.get("/Editdata", ensureAuthenticated, function (req, res) {
             console.log("All the datas are retrieved from the database")
             
         }
+    }).sort({"PrjNm": 1})
+})
+
+
+    const validationBodyTest = [
+        
+        
+        
+        
+        
+                   ] 
+
+    router.post('/addproject', validationBodyTest, (req,res) => {
+
+        
+// check errors
+const errors = validationResult(req);
+             
+if(!errors.isEmpty()){
+    errors.array().forEach(error => {
+    req.flash('error', error.msg)
+   
+   })
+   req.flash('error', 'Project name duplucation!');
+   res.redirect('/datas')
+      return
+}else 
+        project.create(
+           {
+                   Project1: req.body.Project1,
+                   TotExc: "",
+                   stationF: req.body.stationF,
+                   stationT: "",
+                   filltype: "",
+                   layerno: "",
+                   thickness:"",
+                   Quantity: "",
+                   approval: "",
+                   supervisor: "",
+                   Date: "",
+                   comment: "",
+                   picture: "",
+                   profile: "",
+                   layerIm: "",
+                   Rwidth: "",
+                   shrnk: "",
+                   BPname: "",
+                   Evolume: "",
+                   MatCol: "",
+                   MatLyr: "",
+                   Unitrate: "",
+                   PrjNm: req.body.PrjNm,
+                   PrjTyp:{
+                    Actvity: "",
+                    UnitMsr:"",
+                    Unitrate:"",
+                   }
+            
+           }
+        )
+        req.flash('success', 'You have succesfuly inserted your projects!');
+        console.log('The Project name is inserted succesfuly!')
+        res.redirect('/project')
+    })   
+
+router.get('/project', (req,res) => {
+    data.find(function (err, prodataPr) {
+        if (err) {
+           
+            console.log("You have an error")
+            console.log(err)
+        } else {
+            
+              
+            var messages =  req.flash()                    
+            res.render("prodataPr.ejs", {prodataPr: prodataPr, messages, layout:'./layouts/datas header'});
+            
+
+            console.log("All the datas are retrieved from the database")
+            
+        }
     })
 })
 
-//=== 'Project I' || 'Project II' || 'Project III'
-
-validationBodyRules = [
-// form validator
-
-check('PrjNm', 'The project name is not inserted!')
-.exists(),
-//check('PrjNm', 'The project name does not much existing projects!')
-//.equals('Project I' )
-
-
-   ] 
-
-   //urlencodedParser,
-   //res.status(422).jsonp(errors.array())
-   //errors.array().forEach(error => {
-    //req.flash  ('Error:', error.msg)
-
-    //})
-
-       
-
-
-
+const validationBodyRules = [
+    // form validator
+    
+    check('PrjNm', 'The project name is not inserted!')
+    .matches("Project I" || "Project II" || "Project III" ),
+    //check('PrjNm', 'The project name does not much existing projects!')
+    //.equals('Project I' )
+    
+    
+       ] 
    router.post("/addata",  urlencodedParser, validationBodyRules, (req , res) => {
    
     const errors = validationResult(req);
@@ -400,7 +469,7 @@ check('PrjNm', 'The project name is not inserted!')
     
       
        data.create({
-                   PrjNm: req.body.PrjNm,
+                   
                    TotExc: req.body.TotExc,
                    stationF: req.body.stationF,
                    stationT: req.body.stationT,
@@ -422,6 +491,12 @@ check('PrjNm', 'The project name is not inserted!')
                    MatCol: Col,
                    MatLyr: Lyr,
                    Unitrate: req.body.Unitrate,
+                   PrjNm: req.body.PrjNm,
+                   PrjTyp:{
+                    Actvity: req.body.Activity,
+                    UnitMsr:req.body.UnitMsr,
+                    Unitrate:req.body.Unitrate
+                },
                 }
     
             )
@@ -432,18 +507,7 @@ check('PrjNm', 'The project name is not inserted!')
    
  )
         
-        
-
-
-
-
-
-
-
-    
-
-       
-       
+ 
  
 /* RENDER ACTIVITY SUMMARY PAGE
 ------------------------------------------*/
@@ -675,11 +739,11 @@ var pipelineSrt = [
     }
   ]
   
-  
+  //data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}
   router.post("/findPrjdata", function (req, res) {
     var thePrjNm = req.body.PrjNm;
     
-    data.find({ PrjNm: thePrjNm}, function (err, datas) {
+    data.find({ PrjNm: thePrjNm,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, datas) {
         if (err) {
             console.log("You have an error")
             console.log(err)
@@ -775,8 +839,28 @@ router.get("/EditPlan", ensureAuthenticated, function (req, res) {
 })
 
 
-router.post("/datas2", ensureAuthenticated, function (req, res) {
+
+const validationBodyRules2 = [
+    // form validator
     
+    check('PrjNm', 'The project name is not inserted!')
+    .matches("Project I" || "Project II" || "Project III" ),
+      
+    
+       ] 
+
+router.post("/datas2", validationBodyRules2, ensureAuthenticated, function (req, res) {
+
+    const errors = validationResult(req);
+    
+       if(!errors.isEmpty()){ 
+         errors.array().forEach(error => {
+         req.flash  ('Error:', error.msg)
+         })
+         res.render('datas2Vald', {messages: req.flash(), layout: './layouts/datas header'})
+          return
+    }
+       
     var pipelineA =    [
         {
             "$match" : {

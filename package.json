@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server_new.js",
     "test": "echo \"No test specified\" && exit 1",
     "build": "echo \"No build specified\" && exit 1"
   },
@@ -26,6 +26,7 @@
     "express-session": "^1.15.6",
     "express-validator": "^6.14.2",
     "express3-handlebars": "^0.5.2",
+    "fs": "^0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-install": "^1.1.0",
     "install": "^0.11.0",
