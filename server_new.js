@@ -19,7 +19,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index.js');
 var users  = require('./routes/users.js');
-var collectionData = require('./views/collectionData.json')
+//var datas = require('./views/data.ejs')
+var project = require('./models/project.js');
 
 var session = require('express-session');
 var passport = require('passport');
@@ -146,35 +147,13 @@ app.use((req, res, next) => {
 
  /*  fetch data from mongodb database and parse to json format 
   ------------------------------------------------------------*/  
-app.get('/fetchC', (req,res)=>{
-    res.send(collectionData)
-})
+
 app.get('/fetchD', (req,res) =>{
 
     database.collection('datas').find({}).toArray((error, result) =>{
         if(error) throw error
-       const resultString = JSON.stringify(result)
-       const resultObj = JSON.parse(resultString)
-        
-        res.json([{resultObj}])
-        const resultJson = res.json([{resultObj}])
-
-        /*const resultparse = JSON.parse(result)
-        const resultObj = JSON.stringify(resultparse)
-        
-        res.json([{resultObj}])*/
-    
-        
-fs.writeFile("output.json", resultJson, 'utf8', function (err) {
-    if (err) {
-        console.log("An error occured while writing JSON Object to File.");
-        return console.log(err);
-    }
- 
-    console.log("JSON file has been saved.");
-
+        res.json({result})
     })
-})
 })
 
 var database
@@ -190,7 +169,7 @@ MongoClient.connect(url, {useNewUrlParser: true}, (error,result) =>{
         database = result.db('Data_app')
         console.log('connection to the mongoClient is made!!')
         console.log("The server is runnining successfuly to Port 8080")
-
+        console.log(project)
 })   
 
 })

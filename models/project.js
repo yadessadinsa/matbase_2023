@@ -11,49 +11,37 @@ var LocalStrategy = require('passport-local').Strategy;
 
 /* CONNECTION METHOD TO CONNECT TO THE DATABASE
 -----------------------------------------------*/
-    var  project = mongoose.connection;
+    /*var  project = mongoose.connection;
     var Schema = mongoose.Schema;
     
-var dataSchema = new mongoose.Schema({
-    project1:"string",
-    Unitrate: "number",
-    TotExc: "number",
-    stationF: "string",
-    stationT: "string",
-    filltype: "string",
-    layerno: "number",
-    thickness: "number",
-    Quantity: 'number',
-    approval: "string",
-    supervisor: "string",
-    Date: "string",
-    comment: "string",
-    picture: "string",
-    profile: "string",
-    layerIm: "string",
-    Evolume: "number",
-    shrnk: "number",
-    BPname: "string",
-    MatCol: "string",
-    MatLyr: "string",
-    RemQnt: "number",
-    PrjNm: "string",
-    ProjTyp:{
-        Actvity: "string",
-        UnitMsr:'string',
-        Unitrate:'number'
-    },
-    Prjdata: 'string'
+var dataSchema = new mongoose.Schema({*/
 
+
+    var project = ["Project I", "Project II", "Project III", "Project IV", "Project V", "Project VI"];
+    var activity = [
+        "Clearing and grub --(Ha)",
+        "Borrow mat. to fill.(m3)",
+        "R/B pr & unsuitable.(m3)",
+        "Cut-mat. to spoil...(m3)",
+                                                                                                                                                                                             "Sub-base placing..../m3./",
+        "Road base prod......(m3)",
+        "Prime application...(m2)",
+        "Asph.agg production.(m3)",
+        "Asphalt conc placing(m3)",
+        "Surface treatment...(m2)",
+        "Open drains.........(Lm)",
+        "Paved ditch.........(m2)",
+        "Ditch with cover...(pc)",
+        "Box & Slab culvert-(pc)",
+        "Protection walls....(m3)"
+
+           
+]
     
-          
-}
-
-)
 
 
+//var project = mongoose.model('project', dataSchema)
 
-var project = mongoose.model('project', dataSchema)
-module.exports = project;
+module.exports = {project, activity}
 
 

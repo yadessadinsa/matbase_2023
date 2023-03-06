@@ -4,6 +4,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 const { Double } = require('mongodb');
+const { Script } = require('vm');
 var LocalStrategy = require('passport-local').Strategy;
 
 // var bycript = require('bycriptjs');
@@ -12,12 +13,12 @@ var LocalStrategy = require('passport-local').Strategy;
 -----------------------------------------------*/
     var  data = mongoose.connection;
     var Schema = mongoose.Schema;
-    
+
 var dataSchema = new mongoose.Schema({
     Unitrate: "number",
     TotExc: "number",
     stationF: "string",
-    stationT: "string",
+    stationT: "string",  
     filltype: "string",
     layerno: "number",
     thickness: "number",
@@ -55,3 +56,5 @@ var dataSchema = new mongoose.Schema({
 
 var data = mongoose.model('data', dataSchema)
 module.exports = data;
+
+

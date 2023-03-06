@@ -1,5 +1,11 @@
 
 
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;  
+}
+
 
 body {
   font-family: sans-serif, arial, helvetica;
@@ -26,6 +32,54 @@ element::-webkit-scrollbar {
 .ContInput{
   display: inline-block;
   width: 8%;
+  height: 30px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+}
+
+
+.ContInputEdit{
+  display: inline-block;
+  width: 47%;
+  height: 33px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+}
+
+
+.ContInputEditRemv{
+  display: inline-block;
+  width: 20%;
+  height: 33px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+}
+
+
+.ContInputDat{
+  display: inline-block;
+  width: 25%;
   height: 30px;
   padding: 6px 12px;
   font-size: 14px;
@@ -91,7 +145,7 @@ element::-webkit-scrollbar {
 
 .database{
   background: white;
-  margin:5px 10px;
+  margin:5px 0px;
   padding-left:px;
 
   color:black;
@@ -111,10 +165,19 @@ element::-webkit-scrollbar {
 .databaseA{
   background: darkslategrey;
   margin:px;
-  padding-top:2px;
+  padding-top:0px;
   color:black;
   float:left;
   width:14%
+}
+
+.databaseAEdit{
+  background: darkslategrey;
+  margin:px;
+  padding-top:2px;
+  color:black;
+  float:left;
+  width:19%
 }
 
 
@@ -144,7 +207,8 @@ element::-webkit-scrollbar {
   padding-top:2px;
   color:black;
   float:left;
-  width:15%
+  width:15%;
+  padding-left:240px
 }
 
 .database4{
@@ -314,8 +378,8 @@ h1{
   
   BACKGROUND:WHITE
 }
-h2{
- margin-top: 0px;
+h2
+ margin-top: 5px;
   margin-bottom: 5px;
   margin-left: 5px
 
@@ -1003,6 +1067,40 @@ padding-bottom: 0px;
 
 }
 
+
+.Data11{
+  color: black;
+  
+  background: darkslategrey;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 8px;
+  padding-bottom: 0px;
+  float: left;
+  padding-left:120px;
+  width:50.95%
+  
+  
+  }
+  
+  
+.Data12{
+  color: black;
+  
+  background: darkslategrey;
+  margin-top: px;
+  margin-bottom: 0px;
+  padding-top: 8px;
+  padding-bottom: 0px;
+  float:right ;
+  padding-left:143px;
+  padding-right:54px;
+  margin-top: -23px;
+  
+  
+  }
+
+
 .Data9{
   color: yellowgreen;
   style: normal;
@@ -1022,19 +1120,20 @@ margin-bottom:340px
 }
 
 .A{
-    width: 19%;
-    background: gray;
-    color:white;
-    text-align: center;
-    padding-bottom: 0%;
-    padding-top: 0%;
-    float:left;
-    margin: 5px;
-    margin-bottom: 1.2%;
-    border-radius: 0%;
-    color:white;
-    font-size: 14px;
-    
+  width: 19%;
+  background:rgb(242, 240, 240);
+  color: black;
+  text-align: center;
+  padding-bottom: 0%;
+  padding-top: 0%;
+  float:left;
+  margin: 5px;
+  margin-bottom: 1.2%;
+  border-radius: 0%;
+  border-style: double;
+  border-color:grey;
+  font-size: 12px
+  
     
     
     
@@ -1045,8 +1144,8 @@ margin-bottom:340px
 
 .B{
   width: 19%;
-  background:greenyellow;
-  color:white;
+  background:rgb(242, 240, 240);
+  color: black;
   text-align: center;
   padding-bottom: 0%;
   padding-top: 0%;
@@ -1054,9 +1153,10 @@ margin-bottom:340px
   margin: 5px;
   margin-bottom: 1.2%;
   border-radius: 0%;
-  color:white;
-  font-size: 14px
-
+  border-style: double;
+  border-color:greenyellow;
+  font-size: 12px
+  
   
 
 
@@ -1064,8 +1164,8 @@ margin-bottom:340px
 
 .C{
   width: 19%;
-  background:rgb(147, 175, 91);
-  color:white;
+  background:rgb(242, 240, 240);
+  color: black;
   text-align: center;
   padding-bottom: 0%;
   padding-top: 0%;
@@ -1073,8 +1173,9 @@ margin-bottom:340px
   margin: 5px;
   margin-bottom: 1.2%;
   border-radius: 0%;
-  color:white;
-  font-size: 14px
+  border-style: double;
+  border-color:rgb(147,145,91);
+  font-size: 12px
   
   
 
@@ -1082,8 +1183,8 @@ margin-bottom:340px
 }
 .D{
   width: 19%;
-  background:green;
-  color:white;
+  background:rgb(242, 240, 240);
+  color: black;
   text-align: center;
   padding-bottom: 0%;
   padding-top: 0%;
@@ -1091,8 +1192,9 @@ margin-bottom:340px
   margin: 5px;
   margin-bottom: 1.2%;
   border-radius: 0%;
-  color:white;
-  font-size: 14px
+  border-style: double;
+  border-color:green;
+  font-size: 12px
   
   
 
@@ -1100,8 +1202,8 @@ margin-bottom:340px
 }
 .E{
   width: 19%;
-  background: brown;
-  color:white;
+  background:rgb(242, 240, 240);
+  color: black;
   text-align: center;
   padding-bottom: 0%;
   padding-top: 0%;
@@ -1109,25 +1211,27 @@ margin-bottom:340px
   margin: 5px;
   margin-bottom: 1.2%;
   border-radius: 0%;
-  color:white;
-  font-size: 14px
+  border-style: double;
+  border-color:brown;
+  font-size: 12px
   
 
 
 }
 .F{
   width: 19%;
-  background: darkslategray;
-  color:white;
+  border-radius: 0%;
+  background:rgb(242, 240, 240);
+  color:black;
   text-align: center;
   padding-bottom: 0%;
   padding-top: 0%;
   float:left;
   margin: 5px;
   margin-bottom: 1.2%;
-  border-radius: 0%;
-  color:yellow;
-  font-size: 14px
+  border-style: double;
+  border-color:yellow;
+  font-size: 12px
   
   
 
