@@ -512,7 +512,8 @@ const validationBodyRules = [
             }
    
  )
-        
+
+   
  
  
 /* RENDER ACTIVITY SUMMARY PAGE
@@ -943,7 +944,7 @@ router.post("/addatas2", validationBodyRules2, ensureAuthenticated, function (re
         } else {
             req.flash('success', 'You have successfuly entered the Plan data.');
             res.render("datas2.ejs", { datas2: datas2, message: req.flash(), layout: './layouts/datas header' })
-            //res.redirect('/datas2')
+           // res.redirect('/datas2')
         }
     })
 })
@@ -1546,8 +1547,9 @@ router.post("/deletedataX", function (req, res) {
 /* REMOVES FILLTYPE-DATA FROM THE DATABASE data
 -------------------------------------------*/
 router.post("/deletePlan", function (req, res) {
+    var theproject = req.body.PrjNm
     var thefilltype = req.body.filltype;
-    data.remove({ filltype: thefilltype }, function (err, datas2) {
+    data.remove({ filltype: thefilltype, PrjNm: theproject }, function (err, datas2) {
 
         if (err) {
             console.log("You have an error")

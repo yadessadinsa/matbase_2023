@@ -77,6 +77,23 @@ element::-webkit-scrollbar {
 }
 
 
+.ContInputEditRemvAP{
+  display: inline-block;
+  width: 32%;
+  height: 33px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+}
+
+
+
 .ContInputDat{
   display: inline-block;
   width: 25%;
@@ -169,6 +186,16 @@ element::-webkit-scrollbar {
   color:black;
   float:left;
   width:14%
+}
+
+
+.databaseAP{
+  background: darkslategrey;
+  margin:px;
+  padding-top:0px;
+  color:black;
+  float:right;
+  width:30%
 }
 
 .databaseAEdit{
@@ -1093,7 +1120,7 @@ padding-bottom: 0px;
   padding-top: 8px;
   padding-bottom: 0px;
   float:right ;
-  padding-left:143px;
+  padding-left:119px;
   padding-right:54px;
   margin-top: -23px;
   

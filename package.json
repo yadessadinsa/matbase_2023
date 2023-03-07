@@ -6,7 +6,7 @@
     "scripts": {
     "start": "node server.js",
     "test": "echo \"No test specified\" && exit 1",
-    "build": "echo \"No build specified\" && exit 1"
+    "build": "echo \"Npm run build\" && exit 1"
   },
   "engines": {
     "node": "9.3.0",
