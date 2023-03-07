@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   
-  "main": "server.js",
-  "scripts": {
+    "scripts": {
     "start": "node server_new.js",
     "test": "echo \"No test specified\" && exit 1",
     "build": "echo \"No build specified\" && exit 1"
@@ -13,8 +12,7 @@
     "node": "9.3.0",
     "npm": "5.5.1"
   },
-  "author": "",
-  "license": "ISC",
+  
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
@@ -54,6 +52,8 @@
     "type": "git",
     "url": "git+https://github.com/yadessadinsa/matbase_023.git"
   },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/yadessadinsa/matbase_023/issues"
   },
