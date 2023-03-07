@@ -20,7 +20,6 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index.js');
 var users  = require('./routes/users.js');
 //var datas = require('./views/data.ejs')
-var project = require('./models/project.js');
 
 var session = require('express-session');
 var passport = require('passport');
@@ -36,7 +35,7 @@ var morgan = require('morgan');
 const { Server } = require('http');
 var expressLayouts = require('express-ejs-layouts');
 const { connect } = require('http2');
-const fs = require('fs')
+
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 
@@ -66,6 +65,24 @@ mongoose.connection.on('open', function (ref) {
         console.log(names);
     });
 })
+
+
+
+/* FETCH DATA FROM MONGODB BY CONNECTING NODE JS API WITH MONGODB DATABASE
+-------------------------------------------------------------------------*/
+/*app.get('/fetchData', urlencodedParser, (req,res) =>{
+
+    let datas = []
+    .collection('datas')
+        .find()
+    res.json({mssg:'Welcome to api!'})
+   })
+    */
+
+   
+
+
+
 
 const PORT = process.env.PORT || 8080
 
@@ -145,47 +162,23 @@ app.use((req, res, next) => {
 });
 
 
- /*  fetch data from mongodb database and parse to json format 
-  ------------------------------------------------------------*/  
-
-app.get('/fetchD', (req,res) =>{
-
-    database.collection('datas').find({}).toArray((error, result) =>{
-        if(error) throw error
-        res.json({result})
-    })
-})
-
-var database
 app.listen(PORT, function (err) {
 
-MongoClient.connect(url, {useNewUrlParser: true}, (error,result) =>{
-
+    var db
 
     if (err) {
-        throw error
-        
+        console.log("The server is not lisenining, Error!!!");
+        console.log(err);
+
     } else
-        database = result.db('Data_app')
-        console.log('connection to the mongoClient is made!!')
-        console.log("The server is runnining successfuly to Port 8080")
-        console.log(project)
-})   
+
+    
+        console.log("The server is runnining successfuly to Port' + 8080 !!")
+
+        
 
 })
 
-/*function convertJSon(data){
-    
-    const finished = (error) =>{
-        if(error){
-        console.error(error)
-        return;
-        }
-    }
 
-    const jsonData = JSON.stringify(data, null, 2)
-    fs.writeFile(database.json, jsonData, finished)
-}
 
-convertJSon(data)*/
- 
+
