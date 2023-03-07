@@ -5,7 +5,7 @@
   
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server_new.js",
+    "start": "node server_new.js",
     "test": "echo \"No test specified\" && exit 1",
     "build": "echo \"No build specified\" && exit 1"
   },
