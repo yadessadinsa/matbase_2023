@@ -2,7 +2,7 @@
   "name": "matbase_023",
   "version": "1.0.0",
   "description": "",
-  "master": "server.js",
+  "main": "server.js",
     "scripts": {
     "start": "node server.js",
     "test": "echo \"No test specified\" && exit 1",
