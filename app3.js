@@ -5,12 +5,10 @@ var express = require('express'),
     app = express(),
     $ = require('jquery'),
     bodyParser = require('body-parser')
-
 app.set('view.engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 // Instruction to use css & image files location
 app.use(express.static(__dirname + "/public"));
-
 //=============================================
 //Database
 //=============================================
@@ -36,31 +34,25 @@ var dataSchema = new mongoose.Schema({
     BPname:"string"    
 })
 var data = mongoose.model('data', dataSchema)
-
 var loginSchema = new mongoose.Schema({
     username:"string", 
     password: "string",
-            
 })
 var login = mongoose.model('login', loginSchema)
 //============================================
 //ROUTES
 //============================================
-
 // Members/Home page
 app.get("/", function(req, res){
     res.render("login.ejs")
 })
-
 // login page
 app.get("/login", function(req, res){
        res.render("home.ejs")
     })  
-
 app.get("/register", function(req,res){
     res.render("register.ejs")
 })
-
 app.post("/pass", function(req, res){
     login.create({
         username: req.body.username,
@@ -73,11 +65,8 @@ app.post("/pass", function(req, res){
                 res.redirect("/")
             }
         })
-        
 })
-
 // Retrieves all data from the database
-
 app.get("/datas", function(req, res){
     var Pr = req.body.Prname
     data.find({Prname:Pr}, function(err,datas){
@@ -90,7 +79,6 @@ app.get("/datas", function(req, res){
         }
  }).sort({stationF:-1})
 })
-
 // Creates data and redirects to Route - /datas
 app.post("/addata",function(req, res){
         function dateInpute(){
@@ -101,8 +89,6 @@ app.post("/addata",function(req, res){
 		var date = D + "-" + M + "-" + Y;
         return  date;
     }
-   
-    
     // var Ln = req.body.layerno;
     if(Ln=== "1"){
       var Ppic = "MatPic/img1.jpg";
@@ -119,7 +105,6 @@ app.post("/addata",function(req, res){
     else{
         Ppic = "MatPic/img5.jpg"
     }
-    
   function layer(){  
     var StT =req.body.stationF
     var Lno =req.body.layerno
@@ -133,7 +118,6 @@ app.post("/addata",function(req, res){
     Lim = "MatPic/piC4.jpg"
   }else if(StT >= 20 && Lno === "5"){
     Lim = "MatPic/piC5.jpg"
-
   }else{
     Lim = "MatPic/pi6.jpg"
   }
@@ -143,7 +127,6 @@ app.post("/addata",function(req, res){
         V = ((req.body.stationT-req.body.stationF)*(req.body.Rwidth)*(req.body.thickness)*0.001*(req.body.shrnk));
         return V;
     }
-
     var P = req.body.picture;
     if(P){
         P = req.body.picture;
@@ -169,7 +152,6 @@ app.post("/addata",function(req, res){
         shrnk:req.body.shrnk,
         BPname:req.body.BPname,
         Evolume:volume()
-
     },function(err,data){
         if(err){
             console.log("You have an error")
@@ -178,7 +160,6 @@ app.post("/addata",function(req, res){
             console.log("A new data is added to the database");
             res.redirect("/datas")
         }
-       
      })
 })
 // Renders profile page
@@ -217,8 +198,6 @@ app.get("/RdMap", function(req, res){
         }
     }).sort({stationF:-1})
 })
-
-
 //  Retrieves data by station
 app.post("/findata", function(req,res){
       var theStaion = req.body.stationF;
@@ -229,11 +208,9 @@ app.post("/findata", function(req,res){
     }else{
         res.render("datas.ejs", {datas:datas});
         console.log("A new data is retrieved from the database");
-        
     }
   }).sort({stationT:-1})
 })
-
 // Retrieves data by fill type for datas page
 app.post("/findfilltype", function(req,res){
       var thefilltype = req.body.filltype;
@@ -244,11 +221,9 @@ app.post("/findfilltype", function(req,res){
     }else{
         res.render("datas.ejs", {datas:datas});
         console.log("A new data is retrieved from the database");
-        
     }
   }).sort({stationF:-1})
 })
-
 // Retrieves data by fill type for Road map page
 app.post("/Mapfilltype", function(req,res){
       var thefilltype = req.body.filltype;
@@ -259,16 +234,13 @@ app.post("/Mapfilltype", function(req,res){
     }else{
         res.render("RdMap.ejs", {RdMap:RdMap});
         console.log("A new data is retrieved from the database");
-        
     }
   }).sort({stationF:-1})
 })
-
 // Removes data from the database
 app.post("/deletedata", function(req,res){
       var theStaion = req.body.stationF;
       data.remove({stationF:theStaion}, function(err,datas){
-          
     if(err){
         console.log("You have an error")
         console.log(err)
@@ -278,12 +250,10 @@ app.post("/deletedata", function(req,res){
     }
   })
 })
-
  app.listen(8080, function(err){
      if(err){
          console.log("The server is not lisenining, Error!!!");
          console.log(err);
      }else
     console.log("The server has started successfuly!!")
-    
 })

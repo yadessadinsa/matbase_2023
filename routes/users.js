@@ -1,46 +1,30 @@
-
 var express = require('express');
-
 var router = express.Router();
-
 var passport = require('passport');
-
 var bodyParser = require('body-parser')
 var {check, validationResult} = require('express-validator');
-
-
 var LocalStrategy = require('passport-local').Strategy;
-
 var User = require('../models/user.js');
 var data = require('../models/data.js');
 //var project = require('../module/project.js');
-
 var Instdata = require('../models/Instdata.js');
 var dataStatus = require('../controller/dataStatus.js')
 var flash = require('connect-flash');
 //const { check } = require('express-validator/check/validation-chain-builders.js');
-
 const urlencodedParser = bodyParser.urlencoded({extended: false})
-
-
 /* ABOUT ROUTER
 ------------------------------------------------*/
 router.get('/about', function (req, res, next) {
     res.render('First headerxx')
-    
 })
-
 /* AUTHENTICATION ROUTES
    SIGN UP PAGES
 ------------------------------------------------*/ 
-
 router.get('/register', function (req, res) {
     res.render('register.ejs')
 })
-
 const validationCeck = [ 
 // form validator
-
 check('email', 'Email field is required')
 .exists(),
 check('email', 'Email is not valid')
@@ -55,16 +39,10 @@ check('password2', 'You need to conform your password!')
 .exists(),
 check('password2', 'Password do not match')
 .equals('password'),
-
-
-
-
 ]
 router.post('/register', urlencodedParser, validationCeck, function (req, res) {
-
 // check errors
 const errors = validationResult(req);
-             
     if(!errors.isEmpty()){
         errors.array().forEach(error => {
         req.flash('error', error.msg)
@@ -72,20 +50,13 @@ const errors = validationResult(req);
        var messages =  req.flash()
        res.render('register', {messages, layout: './layouts/intro header'})
           return
-         
-        
-       
 }else{
-    
-    
     var newUser = new User()
     newUser.name = req.body.name;
     newUser.email = req.body.email;
     newUser.username = req.body.username;
     newUser.password = req.body.password;
     newUser.password2 = req.body.password2;
-    
-    
 };
     User.create(newUser, function(err, user){
          //newuser.save(function (err, savedUser) {
@@ -98,34 +69,25 @@ const errors = validationResult(req);
             //res.location('/login')
             res.redirect('/login')
     })
-
-    
   /*LOGIN RENDERING PAGE
 --------------------------------------*/
 router.get('/login', function (req, res) {
     var UserName = req.flash('name')
     res.render('login.ejs', {UserName, layout:'./layouts/intro header'})
 }) 
-
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        
         res.redirect('/login');
-
     }
 }
-
-
  /*PASSPORT AUTHENTICATION METHOD
    FOR LOGIN TO THE DATABASE SYSTEM
 ----------------------------------------*/   
-          
         passport.use(new LocalStrategy(User.authenticate())); 
         passport.serializeUser(User.serializeUser());
         passport.deserializeUser(User.deserializeUser());
-
         passport.use(new LocalStrategy(function(username, password, done) {
               User.findOne({ 
                 username: username 
@@ -141,29 +103,20 @@ function ensureAuthenticated(req, res, next) {
               });
             }
           ));
-
-
     router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash:('danger','Invalid username or pssword!! Please re-enter the credentials correctly.' )}),
   function(req, res) {
     req.flash('success','You are now succefully logged in to the program!');
     res.redirect('/intro');
   });
-       
-
 /* LOGIN REDIRECTED TO INTRO PAGE
    MIDDLEWARE
 ----------------------------------------*/    
 router.get('/intro', function (req, res) {
     res.render('intro' ,{message:req.flash(), layout: './layouts/datas header'});
-
 })
-
-
-
 /* LOGIN LOGIC
    MIDDLEWARE
 ----------------------------------------*/
-
 router.post('/login', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;    
@@ -171,19 +124,15 @@ User.findOne({ username: username, password: password }, function (err, user) {
         if (err) {
             console.log(err)
             return res.status(500).send()
-            
         }
         if (!user) {
             return res.status(404).send()
             req.flash('danger', 'wrong username or password !!')
-
         }else
            res.redirect('/datas')
            return res.status(200).send()
-
     })
 })
-
 /* LOGOUT PAGE
 ------------------------------------------*/ 
 router.get('/logout', function (req, res) {
@@ -191,17 +140,11 @@ router.get('/logout', function (req, res) {
     req.flash('success', 'You are now logged out!!')
     res.redirect('/');
 })
-
-
-
 /* RETRIEVES ALL DATA FROM THE DATABASE DATA
 -------------------------------------------------*/
-
 /*var pipelineSrt = [
-                 
     {
         '$match': {
-            
            },
       },    
                     {
@@ -210,66 +153,38 @@ router.get('/logout', function (req, res) {
                           }
                      }
                    ]*/
-
 router.get("/datas", ensureAuthenticated, function (req, res) {
-    
     data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, datas) {
         if (err) {
-           
             console.log("You have an error")
             console.log(err)
         } else {
-            
-              
             var messages =  req.flash()                    
             res.render("datas.ejs", {datas: datas, messages, layout: './layouts/datas header'});
-            
-
             console.log("All the datas are retrieved from the database")
-            
         }
     }).sort({Date: -1})
 })
-
 router.get("/Editdata", ensureAuthenticated, function (req, res) {
-    
     data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
         if (err) {
-           
             console.log("You have an error")
             console.log(err)
         } else {
-            
-              
             var messages =  req.flash()                    
             res.render("Editdata.ejs", {Editdata: Editdata, messages, layout: './layouts/datas header'});
-            
-
             console.log("All the datas are retrieved from the database")
-            
         }
     }).sort({PrjNm: 1})
 })
-
-
     const validationBodyTest = [
-        
-        
-        
-        
-        
                    ] 
-
     router.post('/addproject', validationBodyTest, (req,res) => {
-
-        
 // check errors
 const errors = validationResult(req);
-             
 if(!errors.isEmpty()){
     errors.array().forEach(error => {
     req.flash('error', error.msg)
-   
    })
    req.flash('error', 'Project name duplucation!');
    res.redirect('/datas')
@@ -305,49 +220,34 @@ if(!errors.isEmpty()){
                     UnitMsr:"",
                     Unitrate:"",
                    }
-            
            }
         )
         req.flash('success', 'You have succesfuly inserted your projects!');
         console.log('The Project name is inserted succesfuly!')
         res.redirect('/project')
     })   
-
 router.get('/project', (req,res) => {
     data.find(function (err, prodataPr) {
         if (err) {
-           
             console.log("You have an error")
             console.log(err)
         } else {
-            
-              
             var messages =  req.flash()                    
             res.render("prodataPr.ejs", {prodataPr: prodataPr, messages, layout:'./layouts/datas header'});
-            
-
             console.log("All the datas are retrieved from the database")
-            
         }
     })
 })
-
-
 const validationBodyRules = [
     // form validator
-    
     check('PrjNm', 'The project name is not inserted!')
     //.matches("Project I" || "Project II" || "Project III" || " Project IV " || " Project V " || " Project VI " ),
     .exists()
     //check('PrjNm', 'The project name does not much existing projects!')
     //.equals('Project I' )
-    
-    
        ] 
    router.post("/addata",  urlencodedParser, validationBodyRules, (req , res) => {
-   
     const errors = validationResult(req);
-    
        if(!errors.isEmpty()){ 
          errors.array().forEach(error => {
          req.flash  ('error', error.msg)
@@ -355,11 +255,6 @@ const validationBodyRules = [
          res.render('datasVald', {messages: req.flash(), layout: './layouts/datas header'})
           return
     }
-       
-          
-     
-    
-
         function dateInpute() {
             var d = new Date();
             var D = d.getDate();
@@ -368,9 +263,7 @@ const validationBodyRules = [
             var date = D + "/" + M + "/" + Y;
             return date;
         }
-    
         var Ln = req.body.layerno;
-
         if (Ln === "1") {
             var Ppic = "MatPic/img1.jpg";
         }
@@ -386,7 +279,6 @@ const validationBodyRules = [
         else {
             Ppic = "MatPic/img5.jpg"
         }
-    
         function layer() {
             var StT = req.body.stationF
             var Lno = req.body.layerno
@@ -400,7 +292,6 @@ const validationBodyRules = [
                 Lim = "MatPic/piC4.jpg"
             } else if (StT >= 20 && Lno === "5") {
                 Lim = "MatPic/piC5.jpg"
-    
             } else {
                 Lim = "MatPic/pi6.jpg"
             }
@@ -410,20 +301,16 @@ const validationBodyRules = [
             V = ((req.body.stationT - req.body.stationF) * (req.body.Rwidth) * (req.body.thickness) * 0.001 * (req.body.shrnk));
             return V;
         }
-    
         var P = req.body.picture;
         if (P) {
             P = req.body.picture;
         } else {
             P = "000.jpg";
         };
-    
     // Color match with fill type
-    
         if (req.body.filltype === "Rock fill") {
              Col = "A";
         }
-    
          else if (req.body.filltype === "G3") {
              Col = "B";
         }
@@ -439,13 +326,10 @@ const validationBodyRules = [
          else {
            Col = "F";
         }
-     
         // Thickness match with fill layer number 
-        
         if (req.body.layerno === "1") {
             Lyr = "L1";
        }
-    
         else if (req.body.layerno === "2") {
             Lyr = "L2";
        }
@@ -461,21 +345,10 @@ const validationBodyRules = [
         else {
           Lyr = "L6";
        }
-    
-       
         // convert databas number to standar format
-        
-        
-        
-           
-    
-    
     /*  Project name match with wtith input from select button 
       ---------------------------------------------------------*/  
-    
-      
        data.create({
-                   
                    TotExc: req.body.TotExc,
                    stationF: req.body.stationF,
                    stationT: req.body.stationT,
@@ -504,26 +377,14 @@ const validationBodyRules = [
                     Unitrate:req.body.Unitrate
                 },
                 }
-    
             )
-           
             req.flash('success', 'You have succesfuly inserted your data!');
             res.redirect('/datas')
             }
-   
  )
-
-   
- 
- 
 /* RENDER ACTIVITY SUMMARY PAGE
 ------------------------------------------*/
-
 router.post("/datas1", urlencodedParser, validationBodyRules, function (req, res) {
-  
-   
-
-             
         var pipelineI = [
             {
                 "$unwind" : {
@@ -611,28 +472,19 @@ router.post("/datas1", urlencodedParser, validationBodyRules, function (req, res
                 }
             }
         ] 
-    
     data.aggregate(pipelineI, function (err, datas1) {
-        
         if (err) {
             console.log("You have an error")
             console.log(err)
         } else {
             res.render("datas1.ejs", { datas1: datas1, layout: './layouts/datas header' });
             console.log("A summary page is retrieved from the database");
-
         }
     })
 })
-
 /* RENDER ACTIVITY SUMMARY PAGE
 ------------------------------------------*/
 router.get("/datas1", function (req, res) {
-  
- 
-   
-
-             
     var pipelineI = [
         {
             "$unwind" : {
@@ -720,24 +572,18 @@ router.get("/datas1", function (req, res) {
             }
         }
     ] 
-
 data.aggregate(pipelineI, function (err, datas1) {
-    
     if (err) {
         console.log("You have an error")
         console.log(err)
     } else {
         res.render("datas1.ejs", { datas1: datas1, layout: './layouts/datas header' });
         console.log("A summary page is retrieved from the database");
-
     }
 })
 })
-
-
  /* RETRIEVES ALL DATA FROM THE DATABASE DATA PER PROJECT
 -------------------------------------------------*/
-
 var pipelineSrt = [
     {
       '$sort': {
@@ -745,11 +591,9 @@ var pipelineSrt = [
          }
     }
   ]
-  
   //data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}
   router.post("/findPrjdata", function (req, res) {
     var thePrjNm = req.body.PrjNm;
-    
     data.find({ PrjNm: thePrjNm,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
         if (err) {
             console.log("You have an error")
@@ -757,23 +601,17 @@ var pipelineSrt = [
         } else {
             res.render("Editdata.ejs", { Editdata: Editdata, layout: './layouts/datas header' });
             console.log("Project data is retrieved from the database");
-
         }
     })
 })
-
-
-
 /* RETRIEVES PLAN DATA FROM THE DATABASE DATA
 -------------------------------------------------*/
-
 router.get("/datas2", ensureAuthenticated, function (req, res) {
     var pipelineA =    [
         {
             "$sort" : {
                 "PrjNm" : -1
             }    
-            
         }, 
         {
             "$group" : {
@@ -790,7 +628,6 @@ router.get("/datas2", ensureAuthenticated, function (req, res) {
             }
         }
     ]
-
     data.aggregate(pipelineA, function (err, datas2) {
         if (err) {
             console.log("You have an error")
@@ -802,11 +639,8 @@ router.get("/datas2", ensureAuthenticated, function (req, res) {
         }
     })
 })
-
-
 /* RETRIEVES PLAN DATA FROM THE DATABASE DATA
 -------------------------------------------------*/
-
 router.post("/datas2req", ensureAuthenticated, function (req, res) {
     var pipelineA =    [
         {
@@ -834,7 +668,6 @@ router.post("/datas2req", ensureAuthenticated, function (req, res) {
             }
         }
     ]
-
     data.aggregate(pipelineA, function (err, datas2) {
         if (err) {
             console.log("You have an error")
@@ -847,10 +680,7 @@ router.post("/datas2req", ensureAuthenticated, function (req, res) {
         }
     })
 })
-
-
 router.get("/EditPlan", ensureAuthenticated, function (req, res) {
-
     var pipelineA =    [
         {
             "$match" : {
@@ -872,41 +702,24 @@ router.get("/EditPlan", ensureAuthenticated, function (req, res) {
             }
         }
     ]
-    
     data.aggregate(pipelineA, function (err, EditPlan) {
         if (err) {
-           
             console.log("You have an error")
             console.log(err)
         } else {
-            
-              
             var messages =  req.flash()                  
             res.render("EditPlan.ejs", {EditPlan: EditPlan, messages, layout: './layouts/datas header'});
-            
-
             console.log("All the datas are retrieved from the database")
-            
         }
     })
 })
-
-
-
 const validationBodyRules2 = [
     // form validator
-    
     check('PrjNm', 'The project name is not inserted!')
     .matches("Project I" || "Project II" || "Project III" || " Project IV " || " Project V " || " Project VI " ),
-
-      
-    
        ] 
-
 router.post("/addatas2", validationBodyRules2, ensureAuthenticated, function (req, res) {
-
     const errors = validationResult(req);
-    
        if(!errors.isEmpty()){ 
          errors.array().forEach(error => {
          req.flash  ('Error:', error.msg)
@@ -914,7 +727,6 @@ router.post("/addatas2", validationBodyRules2, ensureAuthenticated, function (re
          res.render('datas2Vald', {messages: req.flash(), layout: './layouts/datas header'})
           return
     }
-       
     var pipelineA =    [
         {
             "$match" : {
@@ -936,7 +748,6 @@ router.post("/addatas2", validationBodyRules2, ensureAuthenticated, function (re
             }
         }
     ]
-
     data.aggregate( pipelineA, function (err, datas2) {
         if (err) {
             console.log("You have an error")
@@ -948,15 +759,9 @@ router.post("/addatas2", validationBodyRules2, ensureAuthenticated, function (re
         }
     })
 })
-
-
-
 /* RENDER TOTAL SUMMARY REPORT PAGE
 ------------------------------------------*/
 router.post("/datas3", function (req, res) {
-  
-     
-    
     var  pipelineIII =  [
         {
             "$unwind" : {
@@ -1120,12 +925,7 @@ router.post("/datas3", function (req, res) {
             }
         }
     ] 
-
-             
-     
-
 data.aggregate(pipelineIII, function (err, datas3) {
-    
     if (err) {
         console.log("You have an error")
         console.log(err)
@@ -1134,20 +934,12 @@ data.aggregate(pipelineIII, function (err, datas3) {
         //res.redirect('/datas3');
         res.render("datas3.ejs", { datas3: datas3, layout: './layouts/datas header' });
         console.log("A summary Total Report page by Project Name is retrieved from the database");
-
     }
 })
 })
-
-
-
-
 /* RENDER TOTAL SUMMARY REPORT PAGE
 ------------------------------------------*/
 router.get("/datas3", function (req, res) {
-  
-     
-    
     var  pipelineIII =  [
         {
             "$unwind" : {
@@ -1311,31 +1103,20 @@ router.get("/datas3", function (req, res) {
             }
         }
     ] 
-
-             
-     
-
 data.aggregate(pipelineIII, function (err, datas3) {
-    
     if (err) {
         console.log("You have an error")
         console.log(err)
     } else {
         var messages =  req.flash() 
 res.render("datas3.ejs", { datas3: datas3, messages, layout: './layouts/datas header' });
-
-        
         console.log("A summary Total Report page by Project Name is retrieved from the database");
-
     }
 })
 })
-
 /* RENDER PROFILE PAGE
 ------------------------------------------*/
-
 router.get("/comment", function (req, res) {
-
         data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1, "picture":1, "profile":1}, function (err, comment) {
         if (err) {
             console.log("you have an error!!!");
@@ -1346,12 +1127,8 @@ router.get("/comment", function (req, res) {
         }
     }).sort({ stationF: -1 })
 })
-
-
-
 /* RETRIEVES X-SECTION DATA BY PROJECT
 ------------------------------------------*/
-
 router.post("/comment", function (req, res) {
     var theProject = req.body.PrjNm;
     data.find({ PrjNm: theProject, "Quantity":{$gt:0} }, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1, "picture":1, "profile":1}, function (err, comment) {
@@ -1363,12 +1140,8 @@ router.post("/comment", function (req, res) {
             console.log("Comments and pictures are displayed successfuly!!")     }
     }).sort({ stationF: -1 })
 })
-
-
-
 /* RENDER ROAD MAP PAGE
 ------------------------------------------*/
-
 router.get("/RdMap", function (req, res) {
     data.find({}, function (err, RdMap) {
         if (err) {
@@ -1380,11 +1153,8 @@ router.get("/RdMap", function (req, res) {
         }
     }).sort({ stationF: -1 })
 })
-
-
 /* RETRIEVES DATA BY STATION
 ------------------------------------------*/
-
 router.post("/findata", function (req, res) {
     var theStation = req.body.stationF;
     data.find({ stationF: theStation }, function (err, Editdata) {
@@ -1394,12 +1164,9 @@ router.post("/findata", function (req, res) {
         } else {
             res.render("Editdata.ejs", { Editdata: Editdata });
             console.log("A new data is retrieved from the database");
-
         }
     }).sort({ stationF: -1 })
 })
-
-
 router.post("/findataB", function (req, res) {
     var theProject = req.body.PrjNm;
     data.find({ PrjNm: theProject }, function (err, datas) {
@@ -1409,15 +1176,11 @@ router.post("/findataB", function (req, res) {
         } else {
             res.render("datas.ejs", { datas: datas });
             console.log("A new data is retrieved from the database");
-
         }
     }).sort({ stationF: -1 })
 })
-
-
 /* RETRIEVES DATA BY FILL TYPE FROM /datas ROUTER
 -------------------------------------------------*/
-
 router.post("/findfilltype", function (req, res) {
     var thefilltype = req.body.filltype;
     data.find({ filltype: thefilltype }, function (err, Editdata) {
@@ -1427,15 +1190,11 @@ router.post("/findfilltype", function (req, res) {
         } else {
             res.render("Editdata.ejs", { Editdata: Editdata, layout: './layouts/datas header' });
             console.log("A new data is retrieved from the database");
-
         }
     }).sort({ stationF: -1 })
 })
-
-
 /* RETRIEVES DATA BY FILL TYPE FROM MAP ROUTER
 -------------------------------------------------*/
-
 router.get("/Mapfilltype", function (req, res) {
     var thefilltype = req.body.filltype;
     data.find({ filltype: thefilltype }, function (err, RdMap) {
@@ -1445,11 +1204,9 @@ router.get("/Mapfilltype", function (req, res) {
         } else {
             res.render("RdMap.ejs", { RdMap: RdMap, layout: './layouts/datas header' });
             console.log("A new map fiiltype is retrieved from the database");
-
         }
     }).sort({ stationF: -1 })
 })
-
 router.post("/Mapfilltype", function (req, res) {
     var thefilltype = req.body.filltype;
     data.find({ filltype: thefilltype }, function (err, RdMap) {
@@ -1459,18 +1216,13 @@ router.post("/Mapfilltype", function (req, res) {
         } else {
             res.render("RdMap.ejs", { RdMap: RdMap, layout: './layouts/datas header' });
             console.log("A new map fiiltype is retrieved from the database");
-
         }
     }).sort({ stationF: -1 })
 })
-
-
 /* RETRIEVES DATA BY FILL TYPE FROM ROAD MAP ROUTER
 --------------------------------------------------*/
 router.post("/MapProtype", function (req, res) {
-    
     var theProjtype = req.body.PrjNm;
-    
         data.find({PrjNm: theProjtype}, function (err, RdMap) {
             if (err) {
                 console.log("You have an error")
@@ -1478,17 +1230,13 @@ router.post("/MapProtype", function (req, res) {
             } else {
                 res.render("RdMap.ejs", { RdMap: RdMap });
                 console.log("A new mapping data is retrieved from the database");
-    
             }
         }).sort({ stationF: -1 })
     })
-
 /* RETRIEVES DATA BY FILL TYPE FROM ROAD MAP ROUTER
 --------------------------------------------------*/
 router.post("/PlanProtype", function (req, res) {
-    
     var theProjtype = req.body.PrjNm;
-    
         data.find({PrjNm: theProjtype}, function (err, datas2) {
             if (err) {
                 console.log("You have an error")
@@ -1496,15 +1244,9 @@ router.post("/PlanProtype", function (req, res) {
             } else {
                 res.render("datas2.ejs", { datas2: datas2 });
                 console.log("A new Plan data is retrieved from the database");
-    
             }
         }).sort({ stationF: -1 })
     })
-
-
-
-
-    
 /* REMOVES DATA FROM THE DATABASE data
 -------------------------------------------*/
 router.post("/deletedata", function (req, res) {
@@ -1512,7 +1254,6 @@ router.post("/deletedata", function (req, res) {
     var thestationF = req.body.stationF;
     var thefilltype = req.body.filltype;
     data.remove({ stationF: thestationF, PrjNm: theproject, filltype: thefilltype }, function (err, datas) {
-
         if (err) {
             console.log("You have an error")
             console.log(err)
@@ -1523,8 +1264,6 @@ router.post("/deletedata", function (req, res) {
         }
     })
 })
-
- 
 /* REMOVES DATA FROM THE X-SECTION DATA
 -------------------------------------------*/
 router.post("/deletedataX", function (req, res) {
@@ -1532,7 +1271,6 @@ router.post("/deletedataX", function (req, res) {
     var thestationF = req.body.stationF;
     var thefilltype = req.body.filltype;
     data.remove({ stationF: thestationF, PrjNm: theproject, filltype: thefilltype }, function (err, comment) {
-
         if (err) {
             console.log("You have an error")
             console.log(err)
@@ -1543,14 +1281,12 @@ router.post("/deletedataX", function (req, res) {
         }
     })
 })
-
 /* REMOVES FILLTYPE-DATA FROM THE DATABASE data
 -------------------------------------------*/
 router.post("/deletePlan", function (req, res) {
     var theproject = req.body.PrjNm
     var thefilltype = req.body.filltype;
     data.remove({ filltype: thefilltype, PrjNm: theproject }, function (err, datas2) {
-
         if (err) {
             console.log("You have an error")
             console.log(err)
@@ -1561,13 +1297,9 @@ router.post("/deletePlan", function (req, res) {
         }
     })
 })
-
-
 /* RETRIEVES DATA FROM THE DATABASE Instdata
 -------------------------------------------*/
-
 router.get('/Instdatas',ensureAuthenticated, function (req, res, next) {
-    
     Instdata.find({}, function (err, Instdatas) {
         if (err) {
             console.log("You have an error")
@@ -1575,16 +1307,12 @@ router.get('/Instdatas',ensureAuthenticated, function (req, res, next) {
         } else {
             res.render('InstdatasA', { Instdatas: Instdatas });
             console.log("An Engineer's Instruction document is retrieved from the database");
-
         }
     }).sort({ stationT: -1 })
 })
- 
 /* ADD DATA TO THE DATABASE Instdata
 -------------------------------------------*/
-
 router.post('/addInstdatas',function(req,res,next){
-
     function dateInpute() {
         //var d = new Date();
         var D = d.getDate();
@@ -1593,8 +1321,6 @@ router.post('/addInstdatas',function(req,res,next){
         var date = M + "/" + D+ "/" + Y;
         return date;
     }
-      
-
     Instdata.create({
     Prname: req.body.Prname,
     formname:req.body.formname,
@@ -1606,7 +1332,6 @@ router.post('/addInstdatas',function(req,res,next){
     instr:req.body.instr,
     sign: req.body.sign,
     pass: req.body.pass
-    
 }, function (err, Instdatas) {
     if (err) {
         console.log("You have an error")
@@ -1615,18 +1340,13 @@ router.post('/addInstdatas',function(req,res,next){
         console.log("A new data is added to the database");
         res.redirect('/Instdatas')
     }
-
 })
 })
-
 /* RETRIEVES DATA FROM THE DATABASE Instdata BY STATION
 -------------------------------------------------------*/
-
 router.post("/findInstdatas", function (req, res) {
-    
     var thestationF = req.body.stationF;
     var thestationT = req.body.stationT;
-    
     Instdata.find({stationF: thestationF, stationT:thestationT }, function (err, Instdatas) {
         if (err) {
             console.log("You have an error")
@@ -1634,17 +1354,14 @@ router.post("/findInstdatas", function (req, res) {
         } else {
             res.render('Instdatas', { Instdatas: Instdatas });
             console.log("An Engineer's Instruction document is retrieved from the database");
-
         }
     }).sort({ stationT: -1 })
 })
 /* REMOVES DATA FROM THE DATABASE Instdata
 -------------------------------------------*/
-
 router.post("/deleteInstdatas", function (req, res) {
     var form = req.body.formname;
     Instdata.remove({ formname: form }, function (err, Instdatas) {
-
         if (err) {
             console.log("You have an error")
             console.log(err)
@@ -1654,8 +1371,4 @@ router.post("/deleteInstdatas", function (req, res) {
         }
     })
 })
-
-
-
-
 module.exports = router;

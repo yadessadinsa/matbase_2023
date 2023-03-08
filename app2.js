@@ -1,4 +1,3 @@
-
 //==============================================
 //SET UP
 //==============================================
@@ -9,7 +8,6 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-
 var  bodyParser= require('body-parser');
 var User = ("./models/user");
 var session = require('express-session');
@@ -19,45 +17,34 @@ var LocalStrategy = require('passport-local').Strategy;
 var multer = require('multer');
 var upload = multer({dest:'./uploads'})
 var flash = require('connect-flash');  
-    
 // View engine setup
 app.set('view.engine', 'ejs');
 app.set('views',path.join(__dirname, 'views'));
 // app.use(logger,'dev');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-
 // Static files location
-
 app.use(express.static(__dirname + "/public"));
 // app.use(express.static(path.join(__dirname, + '/public')));
 // Using routes folder
 // var routes = require('./routes/index');
 // var users  = require('./routes/users');
-
 // Handel sessions
-
 app.use(session({
     secret: 'secret',
     saveUninitialized: true,
     resave: true
 }));
-
 // Passport
-
 app.use(passport.initialize());
 app.use(passport.session());
-
 // Validator
-
 app.use(expressValidator({
     errFormatter: function(param, msg, value){
         var namespace = param.split('.')
         ,root = namespace.shift()
         , formparam = root;
-
         while(namespace.length){
             formparam += '[' + namespace.shift()
         }
@@ -68,24 +55,18 @@ app.use(expressValidator({
         };
     }
 }));
-
 app.use(require('connect-flash')());
 app.use(function(req, res, next){
     res.locals.messages = require(express-messages);
     next();
 });
-
-
 // app.use('/', routes);
 // app.use('/users', users);
-
-
 app.use(function(req,res,next){
     var err = new error('Not Found');
     err.status = 404;
     next(err);
 })
-
 //============================================
 // DATABASE-MAIN DATA
 //============================================
@@ -93,7 +74,6 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 mongoose.connect('mongodb://localhost/Data_app');
  var data = mongoose.connection;
-
 var dataSchema = new mongoose.Schema({
     Prname:"string", 
     stationF: "string",
@@ -114,26 +94,19 @@ var dataSchema = new mongoose.Schema({
     BPname:"string"    
 })
 var data = mongoose.model('data', dataSchema)
-
-
 //============================================
 //ROUTES REGISTER & LOGIN
 //============================================
-
 app.get('/', ensureAuthenticated, function(req, res, next){
     res.render('home', {title:'Home'});
 });
-
 function ensureAuthenticated(req , res, next){
     if(req.isAuthenticated()){
         return next();
     }else{
     res.redirect('/users/login');
-
     }
 }    
-
-
 app.get('/', function(req, res, next){
     res.send('respond with resource');
 });
@@ -143,14 +116,11 @@ app.get('/register', function(req, res, next){
 app.get('/login', function(req, res, next){
     res.render ('login',{title:'login'});
 });
-
-
 app.post('/login', passport.authenticate('local', {failureRedirect: '/users/login' ,failureFlash:'Invalid username or password'}),
         function(req,res){
             req.flash('success','You are now logged in!');
             res.redirect('/');
         }) 
-        
 passport.serializeUser(function(user, done){
     done(null, user.id);
 })
@@ -159,7 +129,6 @@ passport.deserializeUser(function(id, done){
         done(err, user)
     });
 })
-
     passport.use(new LocalStrategy(function(username, password, done){
     User.getUserbyUsername(username, function(err, user){
         if(err) throw err;
@@ -176,7 +145,6 @@ passport.deserializeUser(function(id, done){
         })
     })
 }))
-
 app.post('/register', function(req, res, next){
     var name = req.body.name
     var email = req.body.email
@@ -190,10 +158,8 @@ req.checkBody('email', 'Email is not valid').isEmail()
 req.checkBody('username', 'Username field is required').notEmpty()
 req.checkBody('password', 'Password field is required').notEmpty()
 req.checkBody('password2', 'Password do not match').equal(req.body.password)
-
 // check errors
 var errors = ValidationErrors()
-
 if(errors){
     res.render('register')
          errors:errors
@@ -203,7 +169,6 @@ if(errors){
         email: email,
         username: username,
         password: password
-                
     })
     User.createUser(newUser, function(err, User){
         if (err) throw err;
@@ -214,19 +179,15 @@ if(errors){
     res.redirect('/');
   }
 });
-
 app.get('/logout', function(req, res){
     req.logout();
     req.flash('success', 'You are now loged out!');
     res.redirect('/users/login');
 })
-
 //============================================
 //ROUTES MAIN DATA
 //============================================
-
 // Retrieves all data from the database
-
 app.get("/datas", function(req, res){
     var Pr = req.body.Prname
     data.find({Prname:Pr}, function(err,datas){
@@ -239,7 +200,6 @@ app.get("/datas", function(req, res){
         }
  }).sort({stationF:-1})
 })
-
 // Creates data and redirects to Route - /datas
 app.post("/addata",function(req, res){
         function dateInpute(){
@@ -250,8 +210,6 @@ app.post("/addata",function(req, res){
 		var date = D + "-" + M + "-" + Y;
         return  date;
     }
-   
-    
     var Ln = req.body.layerno;
     if(Ln=== "1"){
       var Ppic = "MatPic/img1.jpg";
@@ -268,7 +226,6 @@ app.post("/addata",function(req, res){
     else{
         Ppic = "MatPic/img5.jpg"
     }
-    
   function layer(){  
     var StT =req.body.stationF
     var Lno =req.body.layerno
@@ -282,7 +239,6 @@ app.post("/addata",function(req, res){
     Lim = "MatPic/piC4.jpg"
   }else if(StT >= 20 && Lno === "5"){
     Lim = "MatPic/piC5.jpg"
-
   }else{
     Lim = "MatPic/pi6.jpg"
   }
@@ -292,7 +248,6 @@ app.post("/addata",function(req, res){
         V = ((req.body.stationT-req.body.stationF)*(req.body.Rwidth)*(req.body.thickness)*0.001*(req.body.shrnk));
         return V;
     }
-
     var P = req.body.picture;
     if(P){
         P = req.body.picture;
@@ -318,17 +273,14 @@ app.post("/addata",function(req, res){
         shrnk:req.body.shrnk,
         BPname:req.body.BPname,
         Evolume:volume()
-
     },function(err,data){
         if(err){
             console.log("You have an error")
             console.log(err)
         }else{
             console.log("A new data is added to the database")
-                
             res.redirect("/datas")
         }
-       
      })
 })
 // Renders profile page
@@ -367,8 +319,6 @@ app.get("/RdMap", function(req, res){
         }
     }).sort({stationF:-1})
 })
-
-
 //  Retrieves data by station
 app.post("/findata", function(req,res){
       var theStaion = req.body.stationF;
@@ -379,11 +329,9 @@ app.post("/findata", function(req,res){
     }else{
         res.render("datas.ejs", {datas:datas});
         console.log("A new data is retrieved from the database");
-        
     }
   }).sort({stationT:-1})
 })
-
 // Retrieves data by fill type for datas page
 app.post("/findfilltype", function(req,res){
       var thefilltype = req.body.filltype;
@@ -394,11 +342,9 @@ app.post("/findfilltype", function(req,res){
     }else{
         res.render("datas.ejs", {datas:datas});
         console.log("A new data is retrieved from the database");
-        
     }
   }).sort({stationF:-1})
 })
-
 // Retrieves data by fill type for Road map page
 app.post("/Mapfilltype", function(req,res){
       var thefilltype = req.body.filltype;
@@ -409,16 +355,13 @@ app.post("/Mapfilltype", function(req,res){
     }else{
         res.render("RdMap.ejs", {RdMap:RdMap});
         console.log("A new data is retrieved from the database");
-        
     }
   }).sort({stationF:-1})
 })
-
 // Removes data from the database
 app.post("/deletedata", function(req,res){
       var theStaion = req.body.stationF;
       data.remove({stationF:theStaion}, function(err,datas){
-          
     if(err){
         console.log("You have an error")
         console.log(err)
@@ -428,8 +371,6 @@ app.post("/deletedata", function(req,res){
     }
   })
 })
-
-
 app.listen(8080, function(err){
     if(err){
         console.log('The server is not responding!!')
@@ -437,4 +378,3 @@ app.listen(8080, function(err){
         console.log('The server is runnining succesfuly!!')
     }
 })
-

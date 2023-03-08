@@ -1,10 +1,7 @@
 @echo off
-
 setlocal
 title Install Additional Tools for Node.js
-
 cls
-
 echo ====================================================
 echo Tools for Node.js Native Modules Installation Script
 echo ====================================================
@@ -25,9 +22,7 @@ echo You can close this window to stop now. Detailed instructions to install the
 echo tools manually are available at https://github.com/nodejs/node-gyp#on-windows
 echo.
 pause
-
 cls
-
 REM Adapted from https://github.com/Microsoft/windows-dev-box-setup-scripts/blob/79bbe5bdc4867088b3e074f9610932f8e4e192c2/README.md#legal
 echo Using this script downloads third party software
 echo ------------------------------------------------
@@ -49,7 +44,5 @@ echo script is at your own risk. Please read the Chocolatey's legal terms of use
 echo as well as how the community repository for Chocolatey.org is maintained.
 echo.
 pause
-
 cls
-
 "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command Start-Process '%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe' -ArgumentList '-NoProfile -InputFormat None -ExecutionPolicy Bypass -Command [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex ((New-Object System.Net.WebClient).DownloadString(''https://chocolatey.org/install.ps1'')); choco upgrade -y python visualstudio2017-workload-vctools; Read-Host ''Type ENTER to exit'' ' -Verb RunAs
