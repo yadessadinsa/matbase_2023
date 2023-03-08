@@ -6,11 +6,11 @@ var {check, validationResult} = require('express-validator');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user.js');
 var data = require('../models/data.js');
-//var project = require('../module/project.js');
+
 var Instdata = require('../models/Instdata.js');
 var dataStatus = require('../controller/dataStatus.js')
 var flash = require('connect-flash');
-//const { check } = require('express-validator/check/validation-chain-builders.js');
+
 const urlencodedParser = bodyParser.urlencoded({extended: false})
 /* ABOUT ROUTER
 ------------------------------------------------*/
@@ -179,72 +179,13 @@ router.get("/Editdata", ensureAuthenticated, function (req, res) {
 })
     const validationBodyTest = [
                    ] 
-    router.post('/addproject', validationBodyTest, (req,res) => {
-// check errors
-const errors = validationResult(req);
-if(!errors.isEmpty()){
-    errors.array().forEach(error => {
-    req.flash('error', error.msg)
-   })
-   req.flash('error', 'Project name duplucation!');
-   res.redirect('/datas')
-      return
-}else 
-        project.create(
-           {
-                   Project1: req.body.Project1,
-                   TotExc: "",
-                   stationF: req.body.stationF,
-                   stationT: "",
-                   filltype: "",
-                   layerno: "",
-                   thickness:"",
-                   Quantity: "",
-                   approval: "",
-                   supervisor: "",
-                   Date: "",
-                   comment: "",
-                   picture: "",
-                   profile: "",
-                   layerIm: "",
-                   Rwidth: "",
-                   shrnk: "",
-                   BPname: "",
-                   Evolume: "",
-                   MatCol: "",
-                   MatLyr: "",
-                   Unitrate: "",
-                   PrjNm: req.body.PrjNm,
-                   PrjTyp:{
-                    Actvity: "",
-                    UnitMsr:"",
-                    Unitrate:"",
-                   }
-           }
-        )
-        req.flash('success', 'You have succesfuly inserted your projects!');
-        console.log('The Project name is inserted succesfuly!')
-        res.redirect('/project')
-    })   
-router.get('/project', (req,res) => {
-    data.find(function (err, prodataPr) {
-        if (err) {
-            console.log("You have an error")
-            console.log(err)
-        } else {
-            var messages =  req.flash()                    
-            res.render("prodataPr.ejs", {prodataPr: prodataPr, messages, layout:'./layouts/datas header'});
-            console.log("All the datas are retrieved from the database")
-        }
-    })
-})
+    
 const validationBodyRules = [
     // form validator
     check('PrjNm', 'The project name is not inserted!')
     //.matches("Project I" || "Project II" || "Project III" || " Project IV " || " Project V " || " Project VI " ),
     .exists()
-    //check('PrjNm', 'The project name does not much existing projects!')
-    //.equals('Project I' )
+    
        ] 
    router.post("/addata",  urlencodedParser, validationBodyRules, (req , res) => {
     const errors = validationResult(req);
@@ -591,8 +532,7 @@ var pipelineSrt = [
          }
     }
   ]
-  //data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}
-  router.post("/findPrjdata", function (req, res) {
+    router.post("/findPrjdata", function (req, res) {
     var thePrjNm = req.body.PrjNm;
     data.find({ PrjNm: thePrjNm,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
         if (err) {
@@ -1294,80 +1234,6 @@ router.post("/deletePlan", function (req, res) {
             console.log("A Plan data is deleted from the database");
             req.flash("danger','You have deleted the Plan data succesfuly!!. However, note that all datas related to this plan has also been deleted." )
             res.redirect("/datas2");
-        }
-    })
-})
-/* RETRIEVES DATA FROM THE DATABASE Instdata
--------------------------------------------*/
-router.get('/Instdatas',ensureAuthenticated, function (req, res, next) {
-    Instdata.find({}, function (err, Instdatas) {
-        if (err) {
-            console.log("You have an error")
-            console.log(err)
-        } else {
-            res.render('InstdatasA', { Instdatas: Instdatas });
-            console.log("An Engineer's Instruction document is retrieved from the database");
-        }
-    }).sort({ stationT: -1 })
-})
-/* ADD DATA TO THE DATABASE Instdata
--------------------------------------------*/
-router.post('/addInstdatas',function(req,res,next){
-    function dateInpute() {
-        //var d = new Date();
-        var D = d.getDate();
-        var M = d.getMonth();
-        var Y = d.getFullYear();
-        var date = M + "/" + D+ "/" + Y;
-        return date;
-    }
-    Instdata.create({
-    Prname: req.body.Prname,
-    formname:req.body.formname,
-    date: dateInpute(),
-    title:req.body.title,
-    stationF: req.body.stationF,
-    stationT: req.body.stationT,
-    engname: req.body.engname,
-    instr:req.body.instr,
-    sign: req.body.sign,
-    pass: req.body.pass
-}, function (err, Instdatas) {
-    if (err) {
-        console.log("You have an error")
-        console.log(err)
-    } else {
-        console.log("A new data is added to the database");
-        res.redirect('/Instdatas')
-    }
-})
-})
-/* RETRIEVES DATA FROM THE DATABASE Instdata BY STATION
--------------------------------------------------------*/
-router.post("/findInstdatas", function (req, res) {
-    var thestationF = req.body.stationF;
-    var thestationT = req.body.stationT;
-    Instdata.find({stationF: thestationF, stationT:thestationT }, function (err, Instdatas) {
-        if (err) {
-            console.log("You have an error")
-            console.log(err)
-        } else {
-            res.render('Instdatas', { Instdatas: Instdatas });
-            console.log("An Engineer's Instruction document is retrieved from the database");
-        }
-    }).sort({ stationT: -1 })
-})
-/* REMOVES DATA FROM THE DATABASE Instdata
--------------------------------------------*/
-router.post("/deleteInstdatas", function (req, res) {
-    var form = req.body.formname;
-    Instdata.remove({ formname: form }, function (err, Instdatas) {
-        if (err) {
-            console.log("You have an error")
-            console.log(err)
-        } else {
-            console.log("An Instraction data is deleted from the database");
-            res.redirect("/Instdatas");
         }
     })
 })
