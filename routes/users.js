@@ -7,7 +7,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user.js');
 var data = require('../models/data.js');
 
-var Instdata = require('../models/Instdata.js');
+
 var dataStatus = require('../controller/dataStatus.js')
 var flash = require('connect-flash');
 
