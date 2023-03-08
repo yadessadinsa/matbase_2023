@@ -15,7 +15,7 @@ const urlencodedParser = bodyParser.urlencoded({extended: false})
 /* ABOUT ROUTER
 ------------------------------------------------*/
 router.get('/about', function (req, res, next) {
-    res.render('First headerxx')
+    res.render('First headerxx', { layout:'./layouts/About header'})
 })
 /* AUTHENTICATION ROUTES
    SIGN UP PAGES
@@ -105,14 +105,14 @@ function ensureAuthenticated(req, res, next) {
           ));
     router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash:('danger','Invalid username or pssword!! Please re-enter the credentials correctly.' )}),
   function(req, res) {
-    req.flash('success','You are now succefully logged in to the program!');
+    req.flash('success', `${users.UserName} You are now succefully logged in to the program!`);
     res.redirect('/intro');
   });
 /* LOGIN REDIRECTED TO INTRO PAGE
    MIDDLEWARE
 ----------------------------------------*/    
 router.get('/intro', function (req, res) {
-    res.render('intro' ,{message:req.flash(), layout: './layouts/datas header'});
+    res.render('intro' ,{message:req.flash(), layout: './layouts/About header'});
 })
 /* LOGIN LOGIC
    MIDDLEWARE
@@ -177,8 +177,94 @@ router.get("/Editdata", ensureAuthenticated, function (req, res) {
         }
     }).sort({PrjNm: 1})
 })
-    const validationBodyTest = [
+
+
+        const validationBodyTest = [
+        
+        
+        
+        
+        
                    ] 
+
+    router.post('/addproject', validationBodyTest, (req,res) => {
+
+        
+// check errors
+const errors = validationResult(req);
+             
+if(!errors.isEmpty()){
+    errors.array().forEach(error => {
+    req.flash('error', error.msg)
+   
+   })
+   req.flash('error', 'Project name duplucation!');
+   res.redirect('/datas')
+      return
+}else 
+        project.create(
+           {
+                   Project1: req.body.Project1,
+                   TotExc: "",
+                   stationF: req.body.stationF,
+                   stationT: "",
+                   filltype: "",
+                   layerno: "",
+                   thickness:"",
+                   Quantity: "",
+                   approval: "",
+                   supervisor: "",
+                   Date: "",
+                   comment: "",
+                   picture: "",
+                   profile: "",
+                   layerIm: "",
+                   Rwidth: "",
+                   shrnk: "",
+                   BPname: "",
+                   Evolume: "",
+                   MatCol: "",
+                   MatLyr: "",
+                   Unitrate: "",
+                   PrjNm: req.body.PrjNm,
+                   PrjTyp:{
+                    Actvity: "",
+                    UnitMsr:"",
+                    Unitrate:"",
+                   }
+            
+           }
+        )
+        req.flash('success', 'You have succesfuly inserted your projects!');
+        console.log('The Project name is inserted succesfuly!')
+        res.redirect('/project')
+    })   
+
+router.get('/project', (req,res) => {
+    data.find(function (err, prodataPr) {
+        if (err) {
+           
+            console.log("You have an error")
+            console.log(err)
+        } else {
+            
+              
+            var messages =  req.flash()                    
+            res.render("prodataPr.ejs", {prodataPr: prodataPr, messages, layout:'./layouts/datas header'});
+            
+
+            console.log("All the datas are retrieved from the database")
+            
+        }
+    })
+})
+
+
+        
+        
+        
+   
+   
     
 const validationBodyRules = [
     // form validator
