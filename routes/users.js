@@ -105,7 +105,7 @@ function ensureAuthenticated(req, res, next) {
           ));
     router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash:('danger','Invalid username or pssword!! Please re-enter the credentials correctly.' )}),
   function(req, res) {
-    req.flash('success', `${users.UserName} You are now succefully logged in to the program!`);
+    req.flash('success', 'You are now succefully logged in to the program!');
     res.redirect('/intro');
   });
 /* LOGIN REDIRECTED TO INTRO PAGE
