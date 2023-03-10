@@ -325,7 +325,7 @@ const validationBodyRules = [
             return Lim;
         }
         function volume() {
-            V = ((req.body.stationT - req.body.stationF) * (req.body.Rwidth) * (req.body.thickness) * 0.001 * (req.body.shrnk));
+            V = ((req.body.stationT - req.body.stationF) * (req.body.Rwidth) * (req.body.thickness) * 1*(req.body.shrnk));
             return V;
         }
         var P = req.body.picture;
@@ -742,8 +742,9 @@ router.get("/EditPlan", ensureAuthenticated, function (req, res) {
 const validationBodyRules2 = [
     // form validator
     check('PrjNm', 'The project name is not inserted!')
-    .matches("Project I" || "Project II" || "Project III" || " Project IV " || " Project V " || " Project VI " ),
-       ] 
+    //.matches("Project I" || "Project II" || "Project III" || " Project IV " || " Project V " || " Project VI " ),
+     .exists()  
+] 
 router.post("/addatas2", validationBodyRules2, ensureAuthenticated, function (req, res) {
     const errors = validationResult(req);
        if(!errors.isEmpty()){ 
@@ -781,7 +782,7 @@ router.post("/addatas2", validationBodyRules2, ensureAuthenticated, function (re
         } else {
             req.flash('success', 'You have successfuly entered the Plan data.');
             res.render("datas2.ejs", { datas2: datas2, message: req.flash(), layout: './layouts/datas header' })
-           // res.redirect('/datas2')
+           //res.redirect('/datas2')
         }
     })
 })

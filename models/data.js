@@ -17,8 +17,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var dataSchema = new mongoose.Schema({
     Unitrate: "number",
     TotExc: "number",
-    stationF: "string",
-    stationT: "string",  
+    stationF: "number",
+    stationT: "number",  
     filltype: "string",
     layerno: "number",
     thickness: "number",
