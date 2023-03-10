@@ -328,6 +328,11 @@ const validationBodyRules = [
             V = ((req.body.stationT - req.body.stationF) * (req.body.Rwidth) * (req.body.thickness) * 1*(req.body.shrnk));
             return V;
         }
+        
+        
+
+
+
         var P = req.body.picture;
         if (P) {
             P = req.body.picture;
@@ -372,6 +377,11 @@ const validationBodyRules = [
         else {
           Lyr = "L6";
        }
+
+       
+
+
+
         // convert databas number to standar format
     /*  Project name match with wtith input from select button 
       ---------------------------------------------------------*/  
@@ -382,7 +392,7 @@ const validationBodyRules = [
                    filltype: req.body.filltype,
                    layerno: req.body.layerno,
                    thickness: req.body.thickness,
-                   Quantity: req.body.Quantity,
+                   Quantity: rq.hody.Quantity,
                    approval: req.body.approval,
                    supervisor: req.body.supervisor,
                    Date: dateInpute(),
