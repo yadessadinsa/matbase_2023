@@ -142,7 +142,7 @@ router.get('/logout', function (req, res) {
 })
 /* RETRIEVES ALL DATA FROM THE DATABASE DATA
 -------------------------------------------------*/
-/*var pipelineSrt = [
+var pipelineSrt = [
     {
         '$match': {
            },
@@ -152,7 +152,7 @@ router.get('/logout', function (req, res) {
                            'Date': -1
                           }
                      }
-                   ]*/
+                   ]
 router.get("/datas", ensureAuthenticated, function (req, res) {
     data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, datas) {
         if (err) {
@@ -163,7 +163,7 @@ router.get("/datas", ensureAuthenticated, function (req, res) {
             res.render("datas.ejs", {datas: datas, messages, layout: './layouts/datas header'});
             console.log("All the datas are retrieved from the database")
         }
-    }).sort({Date: -1})
+    })
 })
 router.get("/Editdata", ensureAuthenticated, function (req, res) {
     data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
@@ -392,7 +392,7 @@ const validationBodyRules = [
                    filltype: req.body.filltype,
                    layerno: req.body.layerno,
                    thickness: req.body.thickness,
-                   Quantity: rq.hody.Quantity,
+                   Quantity: req.body.Quantity,
                    approval: req.body.approval,
                    supervisor: req.body.supervisor,
                    Date: dateInpute(),
@@ -645,8 +645,8 @@ var pipelineSrt = [
 router.get("/datas2", ensureAuthenticated, function (req, res) {
     var pipelineA =    [
         {
-            "$sort" : {
-                "PrjNm" : -1
+            "$match" : {
+                "PrjNm" : req.body.PrjNm,
             }    
         }, 
         {
@@ -1194,16 +1194,34 @@ router.get("/RdMap", function (req, res) {
 ------------------------------------------*/
 router.post("/findata", function (req, res) {
     var theStation = req.body.stationF;
-    data.find({ stationF: theStation }, function (err, Editdata) {
+    data.find({ stationF: theStation,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
+        if (err) {
+            console.log("You have an error")
+            console.log(err)
+        } else {
+            res.render("Editdata.ejs", { Editdata: Editdata, layout: './layouts/datas header' });
+            //res.redirect('/editdata')
+            console.log("A new data is edited or retrieved from the database");
+        }
+    }).sort({ stationF: -1 })
+})
+
+router.get("/findata", function (req, res) {
+    var theStation = req.body.stationF;
+    data.find({ stationF: theStation,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
         if (err) {
             console.log("You have an error")
             console.log(err)
         } else {
             res.render("Editdata.ejs", { Editdata: Editdata });
-            console.log("A new data is retrieved from the database");
+            //res.redirect('/editdata')
+            console.log("A new data is edited or retrieved from the database");
         }
     }).sort({ stationF: -1 })
 })
+
+
+
 router.post("/findataB", function (req, res) {
     var theProject = req.body.PrjNm;
     data.find({ PrjNm: theProject }, function (err, datas) {
@@ -1220,7 +1238,7 @@ router.post("/findataB", function (req, res) {
 -------------------------------------------------*/
 router.post("/findfilltype", function (req, res) {
     var thefilltype = req.body.filltype;
-    data.find({ filltype: thefilltype }, function (err, Editdata) {
+    data.find({ filltype: thefilltype,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
         if (err) {
             console.log("You have an error")
             console.log(err)
