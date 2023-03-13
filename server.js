@@ -121,11 +121,15 @@ app.use((req, res, next) => {
  /*  fetch data from mongodb database and parse to json format 
   ------------------------------------------------------------*/  
 app.get('/fetchD', (req,res) =>{
+
+    var thefilltype = req.body.filltype
     database.collection('datas').find({}).toArray((error, result) =>{
         if(error) throw error
         res.json({result})
     })
 })
+
+
 var database
 app.listen(PORT, function (err) {
 MongoClient.connect(url, {useNewUrlParser: true}, (error,result) =>{

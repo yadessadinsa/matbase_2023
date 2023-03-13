@@ -154,7 +154,7 @@ var pipelineSrt = [
                      }
                    ]
 router.get("/datas", ensureAuthenticated, function (req, res) {
-    data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, datas) {
+    data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1, "approval":1,"supervisor":1,}, function (err, datas) {
         if (err) {
             console.log("You have an error")
             console.log(err)
@@ -166,7 +166,7 @@ router.get("/datas", ensureAuthenticated, function (req, res) {
     })
 })
 router.get("/Editdata", ensureAuthenticated, function (req, res) {
-    data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
+    data.find({"Quantity":{$gt:0}}, {"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1, "approval":1, "supervisor":1,}, function (err, Editdata) {
         if (err) {
             console.log("You have an error")
             console.log(err)
@@ -1194,7 +1194,7 @@ router.get("/RdMap", function (req, res) {
 ------------------------------------------*/
 router.post("/findata", function (req, res) {
     var theStation = req.body.stationF;
-    data.find({ stationF: theStation,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
+    data.find({ stationF: theStation,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1, "approval":1,"supervisor":1,}, function (err, Editdata) {
         if (err) {
             console.log("You have an error")
             console.log(err)
@@ -1208,11 +1208,11 @@ router.post("/findata", function (req, res) {
 
 router.get("/findata", function (req, res) {
     var theStation = req.body.stationF;
-    data.find({ stationF: theStation,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
+    data.find({ stationF: theStation,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1, "approval":1,"supervisor":1,}, function (err, Editdata) {
         if (err) {
             console.log("You have an error")
             console.log(err)
-        } else {
+        } else {S
             res.render("Editdata.ejs", { Editdata: Editdata });
             //res.redirect('/editdata')
             console.log("A new data is edited or retrieved from the database");
@@ -1238,7 +1238,7 @@ router.post("/findataB", function (req, res) {
 -------------------------------------------------*/
 router.post("/findfilltype", function (req, res) {
     var thefilltype = req.body.filltype;
-    data.find({ filltype: thefilltype,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1,"supervisor":1,}, function (err, Editdata) {
+    data.find({ filltype: thefilltype,"Quantity":{$gt:0}},{"stationF":1,"stationT":1,"Date":1,"PrjNm":1,"filltype":1,"Quantity":1,"BPname":1, "approval":1, "supervisor":1,}, function (err, Editdata) {
         if (err) {
             console.log("You have an error")
             console.log(err)

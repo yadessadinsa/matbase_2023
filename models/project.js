@@ -17,7 +17,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var dataSchema = new mongoose.Schema({*/
 
 
-    var project = [];
+    var project = [20,30];
     var activity = [
         
 
