@@ -10,20 +10,22 @@ var LocalStrategy = require('passport-local').Strategy;
 -----------------------------------------------*/
     var  Instdata = mongoose.connection;
     var Schema = mongoose.Schema;
-
-var engInstShcema = new mongoose.Schema({
-    Prname:"string",
-    formname: "string",
-    date: "string",
-    title:"string",
-    stationT: "number",
-    stationF: "number",
-    engname: "string",
-    sign: "string",
-    instr: "string",
-    pass: "number"
+   
+var    engInstShcema = new mongoose.Schema({
+       Prname:"string",
+       info:{
+              formname: "string",
+              date: "string",
+              title:"string",
+              stationT: "number",
+              stationF: "number",
+              engname: "string",
+              sign: "string",
+              instr: "string",
+              pass: "number"
+       }
     
-})
+     })
 
 var Instdata = mongoose.model('Instdata', engInstShcema)
 module.exports = Instdata;

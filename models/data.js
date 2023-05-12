@@ -15,14 +15,18 @@ var LocalStrategy = require('passport-local').Strategy;
     var Schema = mongoose.Schema;
 
 var dataSchema = new mongoose.Schema({
-    Unitrate: "number",
+    PrjNm: "string",
+    
+
+        Unitrate: "number",
     TotExc: "number",
     stationF: "number",
     stationT: "number",  
     filltype: "string",
     layerno: "number",
-    thickness: "number",
+    Compaction: "number",
     Quantity: 'number',
+    Rwidth: "number",
     approval: "string",
     supervisor: "string",
     Date: "string",
@@ -32,11 +36,20 @@ var dataSchema = new mongoose.Schema({
     layerIm: "string",
     Evolume: "number",
     shrnk: "number",
+    shrinkage: "number",
     BPname: "string",
     MatCol: "string",
     MatLyr: "string",
     RemQnt: "number",
-    PrjNm: "string",
+
+        
+
+    
+    
+
+        
+    
+        
     ProjTyp:{
         Actvity: "string",
         UnitMsr:'string',

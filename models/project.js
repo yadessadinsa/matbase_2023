@@ -16,8 +16,11 @@ var LocalStrategy = require('passport-local').Strategy;
     
 var dataSchema = new mongoose.Schema({*/
 
+//const projects =   JSON.parse(localStorage.getItem('projects'));
+//const projects =    JSON.parse(localStorage.getItem('projects'))  
+	//const projectmap =  projects.map(i=> i.projectName)
 
-    var project = [20,30];
+    var project = ["Adama"];
     var activity = [
         
 
@@ -28,6 +31,6 @@ var dataSchema = new mongoose.Schema({*/
 
 //var project = mongoose.model('project', dataSchema)
 
-module.exports = {project, activity}
+module.exports = project
 
 

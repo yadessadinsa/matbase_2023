@@ -1,135 +1,234 @@
 /* L.Desktops */
 
-@media screen and (max-width: 2000px) {
-    .container6 {
-    width: 35%;
-    }
+@media screen and (min-width: 2000px) {
 
-    .btn btn-primary{
-        width:20%
-    }
-
-    textarea.ta10em {
-        height: 100em;
-      }
+     
+.Data12{
+    color: black;
     
-.Data9{
-    color: yellowgreen;
-    style: normal;
-    background: darkslategrey;
-    margin-top: 0px;
-    margin-bottom: 10px;
-    padding-left:2px;
-    padding-top: 0px;
-    padding-bottom: 20px;
-    width: 0%;
-    height: 0%
+    background: rgb(5,68,104);
+    margin-top: px;
+    margin-bottom: 0px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+    float:right ;
+    padding-left:px;
+    padding-right:54px;
+    margin-top: -64px;
     
     
     }
-
-   .filltype{
-    width: 40%
-   }
-
-   .Cfilltype{
-    width: 40%
-   }
-
-   .RstationI{
-    width: 40%
-   }
-
-   .CinsertS{
-    width: 40%
-   }
-   .Prjdata{
-    width: 40%
-   }
-   .mappy{
-    width: 40%;
-    text-size-adjust: 2px;
-   }
-
-   .mappyy{
-    width: 0%
-   }
-    .databaseA {
-        width: 16%;
-        
-    }
-    
-
-    .database1 {
-        width: 19%;
-    }
-
-    .database2 {
-        width: 17%;
-    }
-
-    .database22 {
-        width: 13%;
-        background:#7c7c7b;
-        margin:0px;
-        padding-top:2px;
-        color:black;
-        float:left;
-      
-    }
-    
-    .database3 {
-        width: 45%;
-    }
-    .database4 {
-        width: 10%;
-    }
-
-    .database5 {
-        float: left;
-        width: 19%;
-        margin-top: 0px;
-    }
-
-    .databaseSummary {
-        background: #7c7c7b;
-        float: left;
-        width: 14%;
-        margin-top: 0px;
-        padding-bottom: 2px;
-        
-    }
-
-    .databaseSummaryPlan {
-        background: #7c7c7b;
-        float: left;
-        width: 18%;
-        margin-top: 0px;
-        padding-bottom: 2px;
-        
-    }
-
-    .database7 {
-      /* width: 76%; */
-        width:7.9%;
-        float: left;
-        
-        margin-top: 0px;
-        margin-right: 1px;
-    }
+  
 
     }
 
-/* L.Desktops */
+/* Laptops */
 
-@media (max-width: 1600px) { 
+@media (min-width: 1600px) { 
+    .log{
+        margin-left: 450px
+    }
     .profile {
-        margin-left: 5px
+        margin-left: px
     }
 
     .thickness{
         width: 82px;
     }
+}
+
+/* L.Desktops */
+
+@media (max-width: 1600px) {
+
+    h22{
+		text-align: center;
+		display: inline;
+		padding-left: 313px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-weight: normal;
+		margin-left:-165px
+	}
+    
+    .container6 {
+        width: 35%;
+        height:42%;
+        margin-left:450;
+        margin-right:400;
+        margin-top:100px;
+        margin-bottom:169px;
+        margin-right:150;
+        padding-bottom: 7px;
+        padding-left:55px;
+        padding-right:55px;
+        padding-bottom: 20px;
+        background-color: skyblue;
+        color:white;
+        border-radius: 2%;
+        
+    
+      }
+    
+
+
+      
+
+    .log{
+        margin-left: 450px
+    }
+    .container6 {
+        width: 35%;
+        height:42%
+        }
+
+  
+  
+       
+           
+    
+        .log{
+            margin-left: 670 px;
+           }
+         
+          
+        
+    
+        .btn btn-primary{
+            width:20%
+        }
+    
+        textarea.ta10em {
+            height: 100em;
+          }
+        
+    .Data9{
+        color: yellowgreen;
+        style: normal;
+        background: darkslategrey;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        padding-left:2px;
+        padding-top: 0px;
+        padding-bottom: 20px;
+        width: 0%;
+        height: 0%
+        
+        
+        }
+    
+       .filltype{
+        width: 40%
+       }
+    
+       .Cfilltype{
+        width: 40%
+       }
+    
+       .RstationI{
+        width: 40%
+       }
+    
+       .CinsertS{
+        width: 40%
+       }
+       .Prjdata{
+        width: 40%
+       }
+       .mappy{
+        width: 40%;
+        text-size-adjust: 2px;
+       }
+    
+       .mappyy{
+        width: 0%
+       }
+        .databaseA {
+            width: 18%;
+            
+        }
+        
+        .databaseAEdit{
+            width: 22%;
+        }
+
+        .databaseAP{
+            width: 35%;
+        }
+
+        .Data12{
+            width: 49%;
+        }
+    
+        .database1 {
+            width: 22%;
+        }
+
+        
+
+        #flex {
+            width: 1340px;
+            
+           }
+
+           
+    
+        .database2 {
+            width: 19%;
+        }
+    
+        .database22 {
+            width: 13%;
+            background:#7c7c7b;
+            margin:0px;
+            padding-top:2px;
+            color:black;
+            float:left;
+          
+        }
+        
+        .database3 {
+            width: 34%;
+            float:right
+        }
+        .database4 {
+            width: 10%;
+        }
+    
+        .database5 {
+            float: right;
+            width: 34%;
+            margin-top: 0px;
+        }
+    
+        .databaseSummary {
+            background: #7c7c7b;
+            float: left;
+            width: 14%;
+            margin-top: 0px;
+            padding-bottom: 2px;
+            
+        }
+    
+        .databaseSummaryPlan {
+            background: #7c7c7b;
+            float: left;
+            width: 18%;
+            margin-top: 0px;
+            padding-bottom: 2px;
+            
+        }
+    
+        .database7 {
+          /* width: 76%; */
+            width:7.9%;
+            float: left;
+            
+            margin-top: 0px;
+            margin-right: 1px;
+        }
+    
+
+
 }
 
 /* Tab */
@@ -212,7 +311,7 @@
     }
 
     .database5 {
-        float: left;
+        float: right;
         width: 86%;
         margin-top: -6px;
     }
@@ -518,7 +617,7 @@
     }
 
     .h33 {
-        margin-top: -9px;
+        margin-top: 0px;
     }
 
     #stationF {

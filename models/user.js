@@ -16,6 +16,7 @@ var UserSchema = new mongoose.Schema({
     password: "string",
     email: "string",
     name: "string",
+    Logo: "string",
     profileimage: "string",
     Prname: "string"
 });

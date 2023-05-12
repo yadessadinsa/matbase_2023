@@ -13,6 +13,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index.js');
 var users  = require('./routes/users.js');
+var User = require('./models/user.js');
+
 //var datas = require('./views/data.ejs')
 var project = require('./models/project.js');
 var session = require('express-session');
@@ -79,12 +81,18 @@ app.use(express.static(__dirname + "/public"));
 app.use(session({
     secret: "thisismysession",
     cookie:{  maxAge: oneDay},
-    saveUninitialized:false,
+    saveUninitialized:true,
     resave: false
 }));
 // Passport middleware
+app.use(urlencodedParser)
 app.use(passport.initialize());
 app.use(passport.session());
+
+//passport.use(User.createStrategy());
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
+
 /*app.use(expressValidator({
     errFormatter: function (param, msg, value) {
         var namespace = param.split('.')
@@ -109,7 +117,7 @@ app.use((req, res, next) => {
  app.use('/', routes);
  app.use('/users', users);
  //app.use('/datas', datas)
- app.use(users);
+ app.use(users);  
  //app.use(datas)
  app.get('*', function( req, res, next){
     res.locals.success = req.flash('success');

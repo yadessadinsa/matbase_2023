@@ -6,6 +6,39 @@
   border-color: #ebccd1;  
 }
 
+.activity{
+  margin-left: -40px;
+}
+
+.project{
+  margin-left: -1957px;
+}
+
+.h2{
+  text-align: center;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+ 
+}
+
+#flex{
+  display: flex;
+  width: 2000px
+ }
+
+#flex div{
+	width: 50%;
+	height:auto
+   }
+
+   .log{
+    margin-left: 450px;
+   }
+   
+  
+
+
 
 body {
   font-family: sans-serif, arial, helvetica;
@@ -31,7 +64,7 @@ element::-webkit-scrollbar {
 
 .ContInput{
   display: inline-block;
-  width: 8%;
+  width: 9%;
   height: 30px;
   padding: 6px 12px;
   font-size: 14px;
@@ -178,12 +211,22 @@ element::-webkit-scrollbar {
 
 .database{
   background: white;
-  margin:5px 0px;
+  margin:29px 0px;
   padding-left:px;
 
   color:black;
   padding-top: 2px;
 }
+
+.databasePlan{
+  background: white;
+  margin:0px 0px;
+  padding-left:px;
+
+  color:black;
+  padding-top: 2px;
+}
+
 
 
 
@@ -196,7 +239,7 @@ element::-webkit-scrollbar {
 }
 
 .databaseA{
-  background: darkslategrey;
+  background: rgb(5,68,104);
   margin:px;
   padding-top:0px;
   color:black;
@@ -207,7 +250,7 @@ element::-webkit-scrollbar {
 
 
 .databaseAP{
-  background: darkslategrey;
+  background: rgb(5,68,104);
   margin:px;
   padding-top:0px;
   color:black;
@@ -217,7 +260,7 @@ element::-webkit-scrollbar {
 }
 
 .databaseAEdit{
-  background: darkslategrey;
+  background: white;
   margin:px;
   padding-top:2px;
   color:black;
@@ -228,6 +271,16 @@ element::-webkit-scrollbar {
 
 
 .database1{
+  background: white;
+  margin:0px;
+  padding-top:2px;
+  padding-right: 4px;
+  color:black;
+  float:left;
+  width:53%
+}
+
+database101{
   background: darkslategrey;
   margin:0px;
   padding-top:2px;
@@ -238,7 +291,7 @@ element::-webkit-scrollbar {
 }
 
 .database2{
-  background: darkslategrey;
+  background: white;
   margin:0px;
   padding-top:2px;
   color:black;
@@ -246,14 +299,14 @@ element::-webkit-scrollbar {
   width:18%
 }
 .database3{
-  background: darkslategrey;
+  background: white;
   margin:0px;
   padding-bottom:0px;
   padding-top:2px;
   color:black;
-  float:left;
+  float:rght;
   width:15%;
-  padding-left:240px
+  
 }
 
 .database4{
@@ -268,7 +321,7 @@ element::-webkit-scrollbar {
 }
 
 .database5{
-  background: darkslategrey;
+  background: white;
   margin-left:0px;
   margin-right: 0px;
   padding-bottom:0px;
@@ -351,12 +404,12 @@ element::-webkit-scrollbar {
 
 
 .container {
-  width: 95%;
+  width: 100%;
   margin-left: px;
    overflow: hidden;
    background:skyblue;
-   padding-top: 15px;
-   padding-bottom: 25px;
+   padding-top: 0px;
+   padding-bottom: 10px;
 
 
 }
@@ -381,10 +434,10 @@ element::-webkit-scrollbar {
 }
 
 .container5 {
-  width: 35%;
+  width: 45%;
   height:25%;
   margin-left:450;
-  margin-top:50px;
+  margin-top:100px;
   margin-bottom:5px;
   margin-right:150;
   padding-bottom: 5px;
@@ -423,7 +476,7 @@ h1{
   
   BACKGROUND:WHITE
 }
-h2
+h2{
  margin-top: 5px;
   margin-bottom: 5px;
   margin-left: 5px
@@ -530,9 +583,9 @@ p{
 }
 
 .h33{
-  height:5px;
-  margin-top:15px;
-  padding-top: 30px
+  height:4px;
+  margin-top:10px;
+  padding-top: 27px
  
 }
 
@@ -586,11 +639,11 @@ p{
   }
   
   .container5 {
-    width: 35%;
-    height:76%;
+    width: 40%;
+    height:56%;
     margin-left:400;
     margin-right:400;
-    margin-top:35px;
+    margin-top:100px;
     margin-bottom:169px;
     margin-right:150;
     padding-bottom: px;
@@ -605,7 +658,7 @@ p{
   }
   .container6 {
     width: 35%;
-    height:48%;
+    height:56%;
     margin-left:400;
     margin-right:400;
     margin-top:100px;
@@ -614,7 +667,7 @@ p{
     padding-bottom: 7px;
     padding-left:55px;
     padding-right:55px;
-    padding-bottom: px;
+    padding-bottom: 20px;
     overflow: ;
     background-color: skyblue;
     color:white;
@@ -623,12 +676,32 @@ p{
 
   }
 
+  .container66 {
+    width: 35%;
+    height:56%;
+    margin-right:400;
+    margin-top:100px;
+    margin-bottom:169px;
+    margin-right:150;
+    padding-bottom: 7px;
+    padding-left:55px;
+    padding-right:55px;
+    padding-bottom: 20px;
+    overflow: ;
+    background-color: skyblue;
+    color:white;
+    border-radius: 2%;
+    margin-left: 450px
+
+  }
+
+
   
    
   .container9 {
     width: 45%;
     height:50%;
-    margin-left:452px;
+    margin-left:390px;
     margin-top:70px;
     margin-bottom:169px;
     margin-right:150;
@@ -643,6 +716,27 @@ p{
     font-family: 'Open Sans', sans-serif;
 
   }
+
+   
+  .container99 {
+    width: 45%;
+    height:50%;
+    margin-left:510px;
+    margin-top:70px;
+    margin-bottom:169px;
+    margin-right:150;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-left:35px;
+    padding-right: 35px;
+    overflow: hidden;
+    background-color: skyblue;
+    color:rgb(5,68,104);
+    border-radius: 2%;
+    font-family: 'Open Sans', sans-serif;
+
+  }
+  
   
 #name{
   width:162%;
@@ -770,10 +864,26 @@ header .highlight, header .current a {
   color: darkslategray;
   font-weight: bold;
   text-align: center;
-  margin-top:27px;
+  margin-top:0px;
   font-size: 20px;
+  padding-bottom: 0px;
+  padding-top: 30px;
+  margin-bottom: 10px;
+
+  
+}
+
+
+.mapp 
+{
+  color: darkslategray;
+  font-weight: bold;
+  margin-left: px;
+  margin-top:0px;
+  font-size: 18px;
   padding-bottom: 2px;
-  padding-top: 30px
+  padding-top: 0px;
+  text-align:center
 
   
 }
@@ -974,6 +1084,18 @@ position: absolute;
 }
 
 
+#upload-photo {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  background-color: aqua;
+ 
+}
+#upload-photo:hover {
+ color: green;
+}
+
+
 #boxes .box img {
   width: 40%;
   border-radius: 25px;
@@ -1003,7 +1125,6 @@ position: absolute;
   
 }
 
-
 aside#sidebar {
   float: LEFT;
   width: 60%;
@@ -1017,7 +1138,53 @@ aside#sidebar .qoute input, aside#sidebar .qoute textarea {
 
 #comment1{
   margin-left: 300px;
-  width: 56%;
+  width: 438%;
+}
+
+.comments{
+  width: 369px;
+  height: 37px;
+  margin-left:227px;
+  padding-left: 40px;
+}
+
+.btnEd {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  margin-left: 30px;
+
+  display: inline-block;
+  padding-top: 14px;
+  padding-bottom:28px;
+  padding-right:12px;
+  padding-left:12px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin-top: 1px;
+  margin-left:2px;
+  width: 100%
+}
+
+.divCom{
+  background:white;
+  border-color: black;
+  border-style:;
 }
 
 h2 {
@@ -1103,12 +1270,13 @@ height: 3%
 .Data1{
 color: black;
 style: normal;
-background: darkslategrey;
+background: rgb(5,68,104);
 margin-top: 0px;
 margin-bottom: 0px;
 padding-left:0px;
 padding-top: 8px;
 padding-bottom: 0px;
+
 
 }
 
@@ -1116,31 +1284,49 @@ padding-bottom: 0px;
 .Data11{
   color: black;
   
-  background: darkslategrey;
-  margin-top: 0px;
+  background: #054468;
+  margin-top: -25px;
   margin-bottom: 0px;
   padding-top: 8px;
   padding-bottom: 0px;
   float: left;
-  padding-left:120px;
-  width:50.95%
+  padding-left:-29px;
+  width:100%
   
   
   }
+
+  
+.Data11AC{
+  color: black;
+  
+  background: #054468;
+  margin-top: px;
+  margin-bottom: 0px;
+  padding-top: 8px;
+  padding-bottom: 0px;
+  float: left;
+  padding-left:-29px;
+  width:100%
+  
+  
+  }
+
   
   
 .Data12{
   color: black;
   
-  background: darkslategrey;
+  background: rgb(5,68,104);
   margin-top: px;
   margin-bottom: 0px;
   padding-top: 8px;
   padding-bottom: 0px;
   float:right ;
-  padding-left:119px;
-  padding-right:54px;
+  padding-left:px;
+  padding-right:;
   margin-top: -23px;
+  width:50.95%
   
   
   }
@@ -1149,7 +1335,7 @@ padding-bottom: 0px;
   .Data111{
     color: black;
   style: normal;
-  background: darkslategrey;
+  background: rgb(5,68,104);
   margin-top: 0px;
   margin-bottom: 0px;
   padding-left:0px;
@@ -1164,7 +1350,7 @@ padding-bottom: 0px;
 .Data9{
   color: yellowgreen;
   style: normal;
-  background: darkslategrey;
+  background: rgb(5,68,104);
   margin-top: 0px;
   margin-bottom: 0px;
   padding-left:2px;
@@ -1180,7 +1366,7 @@ margin-bottom:340px
 }
 
 .A{
-  width: 19%;
+  width: 32%;
   background:rgb(242, 240, 240);
   color: black;
   text-align: center;
@@ -1203,7 +1389,7 @@ margin-bottom:340px
 }
 
 .B{
-  width: 19%;
+  width: 32%;
   background:rgb(242, 240, 240);
   color: black;
   text-align: center;
@@ -1223,7 +1409,7 @@ margin-bottom:340px
 }
 
 .C{
-  width: 19%;
+  width: 32%;
   background:rgb(242, 240, 240);
   color: black;
   text-align: center;
@@ -1242,7 +1428,7 @@ margin-bottom:340px
 
 }
 .D{
-  width: 19%;
+  width: 32%;
   background:rgb(242, 240, 240);
   color: black;
   text-align: center;
@@ -1261,7 +1447,7 @@ margin-bottom:340px
 
 }
 .E{
-  width: 19%;
+  width: 32%;
   background:rgb(242, 240, 240);
   color: black;
   text-align: center;
@@ -1279,7 +1465,7 @@ margin-bottom:340px
 
 }
 .F{
-  width: 19%;
+  width: 25%;
   border-radius: 0%;
   background:rgb(242, 240, 240);
   color:black;
@@ -1290,7 +1476,7 @@ margin-bottom:340px
   margin: 5px;
   margin-bottom: 1.2%;
   border-style: double;
-  border-color:yellow;
+  border-color:blue;
   font-size: 12px
   
   
@@ -1325,6 +1511,7 @@ margin-bottom:340px
 #container1{
     margin: 5px auto;
     max-width: 2000px;
+  
 }
 
 p{
@@ -1405,7 +1592,7 @@ input[type='file']{
   font-size: 16px;
   color: rgba(200,100,30);
   margin-right: 25px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: bold;
 }
 
@@ -1673,7 +1860,7 @@ body{
 
 .wrapper .section{
     width: calc(100% 0px);
-    margin-left: 225px;
+    margin-left: px;
     transition: all 0.5s ease;
 }
 
